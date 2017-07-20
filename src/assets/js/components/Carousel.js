@@ -9,5 +9,6 @@ const Carousel = () => {
                       "<div class='item'><img src='assets/img/pants-n1.jpg'></div>"+
                       "<div class='item'><img src='assets/img/pants-n2.jpg'></div>"+
                       "</div>");
+
   return secCarousel;
 }

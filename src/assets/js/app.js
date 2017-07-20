@@ -2,9 +2,9 @@
 const render = (root)=>{
     root.empty();
     const section = $('<section class="components"></section>');
-    section.append(Header());
-    section.append(Mixed());
-    section.append(Footer());
+    section.append(Welcome());
+    // section.append(Mixed());
+    // section.append(Footer());
     root.append(section);
 };
 // const state = {
