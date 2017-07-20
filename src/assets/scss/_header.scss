@@ -1,0 +1,16 @@
+@import "variables";
+.header--icoHamburger{
+  @extend  %flex-center ;
+  flex-direction: row;
+}
+.header--message{
+  @extend %flex-center ;
+  flex-direction: row;
+}
+.header--margin-boxes{
+  margin: 2px;
+}
+.header--boxes-margin{
+  @extend  %mg-top ;
+  @extend %mg-bottom ;
+}
