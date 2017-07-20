@@ -18,7 +18,7 @@ Se utilizó el siguiente framework: Bootstrap.
 
 ## Lanzamiento 
 
-Esta es la versión final de la página web del <a href="">Oechsle</a>
+Esta es la versión final de la aplicación mobile de <a href="">Oechsle</a>
 
 ## Desarrollado con
 
