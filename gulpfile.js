@@ -34,7 +34,6 @@ const sources = {
 
 gulp.task('html', () => {
     gulp.src(sources.html).pipe(gulp.dest(config.dist));
-
 });
 gulp.task('sass', () => {
     gulp.src(sources.rootSass)
