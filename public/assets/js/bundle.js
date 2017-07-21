@@ -1,78 +1,82 @@
 "use strict";
 var render = function (root) {
-   root.empty();
+  root.empty();
 
-   var section = $("<section class=\"components\"></section>");
+  var section = $("<section class=\"components\"></section>");
 
-   if (state.page == 0) {
-      //  section.append(Header (
-      section.append(Header(function (_) {
-         render(root);
-      }));
-      section.append(welcome(function (_) {
-         render(root);
-      }));
-   } else if (state.page == 1) {
-      section.append(Header(function (_) {
-         render(root);
-      }));
-      section.append(Outfit(function (_) {
-         render(root);
-      }));
-   } else if (state.page == 2) {
-      section.append(Yourbasket(function (_) {
-         render(root);
-      }));
-   } else if (state.page == 3) {
-      section.append(FittingRoom());
-   }
+  if (state.page == 0) {
+    //  section.append(Header (
+    section.append(Header(function (_) {
+      render(root);
+    }));
+    section.append(welcome(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 1) {
+    section.append(Header(function (_) {
+      render(root);
+    }));
+    section.append(Outfit(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 2) {
+    section.append(Yourbasket(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 3) {
+    section.append(FittingRoom(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 4) {
+    section.append(Seeyou());
+  }
 
-   root.append(section);
-   init();
+  root.append(section);
+  init();
 };
 
 var state = {
-   page: 0,
-   cloth: null,
-   buy: null,
-   clothSelected: null,
-   prendaRandon: null,
-   locals: null,
-   localSelected: null
+  page: 0,
+  cloth: null,
+  buy: null,
+  clothSelected: null,
+  prendaRandon: null,
+  locals: null,
+  localSelected: null
 };
 
 var update = function () {
-   render(root);
+  render(root);
 };
 
 $(function (_) {
-   var config = {
-      apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
-      authDomain: "base-7937c.firebaseapp.com",
-      databaseURL: "https://base-7937c.firebaseio.com",
-      projectId: "base-7937c",
-      storageBucket: "",
-      messagingSenderId: "305091668120"
-   };
-   firebase.initializeApp(config);
-   var database = firebase.database();
-   database.ref().on("value", function (snap) {
-      state.cloth = snap.val();
-      state.locals = snap.val().locals;
-      var array = [];
-      for (var i = 0; i < state.cloth.clothes.length; i++) {
-         if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
-            array.push(state.cloth.clothes[i].image);
-         }
-      };
-      var randno = array[Math.floor(Math.random() * array.length)];
-      // $('.archivoNombre').text( randno );
-      state.prendaRandon = randno;
-      console.log(randno);
+  var config = {
+    apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
+    authDomain: "base-7937c.firebaseapp.com",
+    databaseURL: "https://base-7937c.firebaseio.com",
+    projectId: "base-7937c",
+    storageBucket: "",
+    messagingSenderId: "305091668120"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  database.ref().on("value", function (snap) {
+    state.cloth = snap.val();
+    state.locals = snap.val().locals;
+    var array = [];
+    for (var i = 0; i < state.cloth.clothes.length; i++) {
+      if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
+        array.push(state.cloth.clothes[i].image);
+      }
+    };
+    var randno = array[Math.floor(Math.random() * array.length)];
+    // $('.archivoNombre').text( randno );
+    state.prendaRandon = randno;
+    console.log(randno);
 
-      var root = $("#root");
-      render(root);
-   });
+    var root = $("#root");
+    render(root);
+  });
 });
 "use strict";
 
@@ -3413,6 +3417,32 @@ var FittingRoom = function (update) {
 };
 "use strict";
 
+var Seeyou = function () {
+  var secSeeu = $("<section id='seeyou' class='container-fluid vh-100'></section>");
+  var row1 = $("<div class='row vh-10'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<p>See you soon!</p></div></div>");
+  var cont1 = $("<div class='container'><div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><div class=''><img src='assets/img/final.jpg' class='img-responsive'></div></div></div></div>");
+  var conta2 = $("<div class='container-fluid seeyou--bg-color vh-50'><div class='container-flex-colum'><div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><p class='seeyou--text-color seeyou--p-pd'></p></div></div></div></div>");
+  var text1 = $("<span>Great! Your basket will be shipped to our fitting room in </span>");
+  var locationtxt = $("<span id='location'></span>");
+  var txt = $("<span>Nos vemos en Oechsle  " + state.localSelected["data-store"] + "</span>");
+  var date = $("<span id='date '></span>");
+  var txt2 = $("<span>between</span>");
+  var time = $("<span id='time'>15:30 and 17:00</span>");
+  var row3 = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><p class='seeyou--text-color small seeyou--p-pd'>P.S: You pay only for what you decide to take from the fitting room!</p></div></div>");
+  secSeeu.append(row1);
+  secSeeu.append(cont1);
+  secSeeu.append(conta2);
+  conta2.append(text1);
+  conta2.append(locationtxt);
+  conta2.append(txt);
+  conta2.append(date);
+  conta2.append(txt2);
+  conta2.append(time);
+  secSeeu.append(row3);
+  return secSeeu;
+};
+"use strict";
+
 var filterBycloths = function (ropa, query) {
   var select = ropa.filter(function (index) {
     return index.Type == query;
@@ -3436,17 +3466,22 @@ var filterByLocal = function (locals, query) {
 };
 "use strict";
 
-var FittingRoom = function () {
+var FittingRoom = function (update) {
   var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
   var row = $("<div class='row margin1'>" + "<div class='margin1 col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='margin1 col-xs-10 col-sm-10 container-flex-row'><h3>Reserva una cita</h3></div>" + "</div>");
   var conta = $("<div class='container'></div>");
   var rowc = $("<div class='row margin1'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
   var div = $("<div></div>");
-  var p = $("<p>Selecciona locación</p>");
-  var inputFilter = $("<input type='text' class='margin1 fitRoom--input-class'>");
+  var p = $("<p>select a location</p>");
+  // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
+  var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
   var mapa = $("<div id='mapa'></div>");
-  var div2 = $("<div><p>Selecciona día y hora</p></div>" + "<input type='text' class='fitRoom--input-class'></div>");
-  var rows = $("<div class='margin1 row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='margin1 row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='margin1 row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='btn btn-danger boton'>Confirmar</button>" + "</div></div>");
+  var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>");
+  var row_btn = $("<div class='row'></div>");
+  var div_cont = $("<div class='col-xs-12 col-sm-12 container-flex-row'></div>");
+  var btn_next = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>");
+
 
   secFRoom.append(row);
   secFRoom.append(conta);
@@ -3457,8 +3492,100 @@ var FittingRoom = function () {
   div.append(mapa);
   rowc.append(div2);
   conta.append(rows);
+  div_cont.append(btn_next);
+  row_btn.append(div_cont);
+  conta.append(row_btn);
+
+  inputFilter.on("keyup", function (e) {
+    var find = filterByLocal(state.locals, inputFilter.val());
+
+    reRender(mapa, find, update);
+  });
+  var reRender = function (mapa, find, update) {
+    mapa.empty();
+    find.forEach(function (local) {
+      mapa.append(localItem(local, update, function (_) {
+        reRender(mapa, find);
+      }));
+    });
+  };
+  var localItem = function (local, update, reRender) {
+    var contLocal = $("<div class=\"\"></div>");
+    var contName = $("<div class=\"\"></div>");
+    var name = $("<span>" + local["data-store"] + "</span>");
+    var contLink = $("<div class=\"\"></div>");
+    var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
+    var contAddres = $("<div class=\"\"></div>");
+    var address = $("<p>" + local.address + "<br>" + "-" + local["data-province"] + "</p>");
+
+    contName.append(name);
+    contLink.append(mapIcon);
+    contAddres.append(address);
+
+    contLocal.append(contName);
+    contLocal.append(contLink);
+    contLocal.append(contAddres);
+
+    mapIcon.on("click", function (e) {
+      e.preventDefault();
+      state.localSelected = local;
+      $("#mapa").empty();
+
+      initMap(local);
+    });
+
+    return contLocal;
+  };
+  btn_next.on("click", function () {
+    console.log("Nos vemos  ");
+    state.page = 4;
+    update();
+  });
+
+  function initMap(local) {
+    console.log(local);
+
+    var map = new google.maps.Map(document.getElementById("mapa"), {
+      center: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) },
+      zoom: 17
+    });
+
+    var marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) }
+    });
+    marker.addListener("load", toggleBounce);
+
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+  }
 
 
+  var unSelect = function (e) {
+    e.style.opacity = "1";
+    ac = false;
+  };
+  var Select = function (e) {
+    console.log("select" + e);
+    ac = true;
+    e.style.opacity = "0.5";
+  };
+  var ac = false;
+  // $(".fitRoom--span-class").click((e)=>{
+  //   if(!ac){
+  //       Select(e.target);
+  //   }else{
+  //     unSelect(e.target);
+  //   }
+  //   console.log(e.target);
+  // });
 
   return secFRoom;
 };
