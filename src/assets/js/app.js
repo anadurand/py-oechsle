@@ -12,6 +12,7 @@ const render = (root)=>{
     }else if(state.page == 2){
     }
     root.append(section);
+    init();//inicializa camara
 };
 
 const state = {
