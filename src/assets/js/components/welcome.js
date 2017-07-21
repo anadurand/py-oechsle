@@ -15,7 +15,7 @@ const welcome = (update) => {
   photoContainer.append(photoFooter);
 
 	photoFooter.on('click', function(){
-		const prenda = $('#archivo').val();
+		const prenda = state.prendaRandon;
 
 		$.each(state.cloth.clothes, function( i, value ) {
 			if (value.image == prenda) {

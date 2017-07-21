@@ -17,7 +17,8 @@ const render = (root)=>{
 const state = {
     page: 0,
     cloth: null,
-    clothSelected : null
+    clothSelected : null,
+    prendaRandon:null
 };
 
 const update = function (){
@@ -47,6 +48,7 @@ for (var i = 0; i < state.cloth.clothes.length; i++) {
 };
 const  randno = array[Math.floor( Math.random() * array.length )];
 // $('.archivoNombre').text( randno );
+    state.prendaRandon= randno;
     console.log(randno);
 
    const root = $('#root');

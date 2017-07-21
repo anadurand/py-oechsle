@@ -17,7 +17,8 @@ var render = function (root) {
 var state = {
   page: 0,
   cloth: null,
-  clothSelected: null
+  clothSelected: null,
+  prendaRandon: null
 };
 
 var update = function () {
@@ -46,6 +47,7 @@ $(function (_) {
     };
     var randno = array[Math.floor(Math.random() * array.length)];
     // $('.archivoNombre').text( randno );
+    state.prendaRandon = randno;
     console.log(randno);
 
     var root = $("#root");
@@ -3473,7 +3475,7 @@ var welcome = function (update) {
 	photoContainer.append(photoFooter);
 
 	photoFooter.on("click", function () {
-		var prenda = $("#archivo").val();
+		var prenda = state.prendaRandon;
 
 		$.each(state.cloth.clothes, function (i, value) {
 			if (value.image == prenda) {
