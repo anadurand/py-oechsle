@@ -93,9 +93,10 @@ const Outfit = (update) => {
         loop:true,
         margin:10,
         nav:false,
+        center:true,
         responsive:{
             0:{
-                items:1
+                items:3
             },
             600:{
                 items:3

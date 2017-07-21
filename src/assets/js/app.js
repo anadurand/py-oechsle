@@ -9,12 +9,11 @@ const render = (root)=>{
       section.append(Header());
       section.append(welcome( _ => {
       render(root);}));
+
     } else if(state.page == 1) {
 
       section.append(Header());
       section.append(Outfit());
-
-
 
     }else if(state.page == 2){
     }
