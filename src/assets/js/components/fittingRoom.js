@@ -6,8 +6,9 @@ const FittingRoom = (update) => {
   "</div>");
   const conta = $("<div class='container'></div>");
   const rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
-  const div = $("<div class='input-group'></div>");
+  const div = $("<div></div>");
   const p = $("<p>select a location</p>");
+  // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
   const inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
   const mapa = $("<div id='mapa'></div>");
   const div2 = $("<div><p>select a date and time</p>"+
@@ -19,16 +20,17 @@ const FittingRoom = (update) => {
     "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>"+
     "</div></div>");
 
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">@</span>
-      <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
-    </div>
+    // <div class="input-group">
+    //   <span class="input-group-addon" id="basic-addon1">@</span>
+    //   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+    // </div>
 
 secFRoom.append(row);
 secFRoom.append(conta);
 conta.append(rowc)
 rowc.append(div);
 div.append(p);
+// div.append(iconSearch)
 div.append(inputFilter);
 div.append(mapa);
 rowc.append(div2);
@@ -45,12 +47,12 @@ const reRender = (mapa, find, update) => {
  });
 }
 const localItem = (local, update, reRender ) => {
- const contLocal=  $('<div class="col-xs-12"></div>');
- const contName= $('<div class="col-xs-9"></div>');
- const name = $('<h5>'+ local["data-store"] +'</h5>');
- const contLink = $('<div class="col-xs-3 center-align"></div>');
+ const contLocal=  $('<div class=""></div>');
+ const contName= $('<div class=""></div>');
+ const name = $('<span>'+ local["data-store"] +'</span>');
+ const contLink = $('<div class=""></div>');
  const mapIcon = $('<i class="glyphicon glyphicon-map-marker"></i>');
- const contAddres = $('<div class="col-xs-12 item-local"></div>');
+ const contAddres = $('<div class=""></div>');
  const address= $('<p>'+ local.address +'<br>'+ "-" + local["data-province"]+'</p>');
 
  contName.append(name);

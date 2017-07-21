@@ -3309,16 +3309,23 @@ var FittingRoom = function (update) {
   var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
   var div = $("<div></div>");
   var p = $("<p>select a location</p>");
+  // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
   var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
   var mapa = $("<div id='mapa'></div>");
   var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
   var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
+
+  // <div class="input-group">
+  //   <span class="input-group-addon" id="basic-addon1">@</span>
+  //   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+  // </div>
 
   secFRoom.append(row);
   secFRoom.append(conta);
   conta.append(rowc);
   rowc.append(div);
   div.append(p);
+  // div.append(iconSearch)
   div.append(inputFilter);
   div.append(mapa);
   rowc.append(div2);
@@ -3337,12 +3344,12 @@ var FittingRoom = function (update) {
     });
   };
   var localItem = function (local, update, reRender) {
-    var contLocal = $("<div class=\"col-xs-12\"></div>");
-    var contName = $("<div class=\"col-xs-9\"></div>");
-    var name = $("<h5>" + local["data-store"] + "</h5>");
-    var contLink = $("<div class=\"col-xs-3 center-align\"></div>");
+    var contLocal = $("<div class=\"\"></div>");
+    var contName = $("<div class=\"\"></div>");
+    var name = $("<span>" + local["data-store"] + "</span>");
+    var contLink = $("<div class=\"\"></div>");
     var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
-    var contAddres = $("<div class=\"col-xs-12 item-local\"></div>");
+    var contAddres = $("<div class=\"\"></div>");
     var address = $("<p>" + local.address + "<br>" + "-" + local["data-province"] + "</p>");
 
     contName.append(name);
