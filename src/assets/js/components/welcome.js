@@ -4,9 +4,9 @@ const welcome = (update) => {
 	const photoCont = $('<div class="photo-container__cont"></div>');
   const divMsj  = $('<div class="cont_text"><h4>Bienvenida al App de Oechsle.<br>Oechsle es la Tienda por Departamento del Grupo Intercorp. Somos parte de un grupo empresarial comprometido con el desarrollo y bienestar de las familias Peruanas. </h4></div>')
 
-	const videoHtml = $("<video id='video' width='150' height='150'></video>");
-	    const imgHtml = $("<img id='img' src='' width='150' height='150'>");
-	    const canvasHtml = $("<canvas id='canva' width='150' height='150'></canvas>");
+	const videoHtml = $("<video id='video' width='250' height='250'></video>");
+	    const imgHtml = $("<img id='img' src='' width='250' height='250'>");
+	    const canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
 	    const buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
 	    //const downloadHtml = $("<a href='#' class='button' id='btn-download' download='blouse-n2.jpg'>Download</a>");
 

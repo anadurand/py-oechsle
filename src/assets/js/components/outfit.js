@@ -80,10 +80,6 @@ const Outfit = (update) => {
         divOptions_2.append(secCarousel_2);
         controw.append(divOptions_2);
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> b495a7a94faad03ab1f58b57b31a995f669f8d8e
   const footerOutfit =$('<div class="outfit-container__footer">'+
                           '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
                         '</div>');
