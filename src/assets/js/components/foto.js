@@ -12,12 +12,12 @@
 	photoContainer.append(videoHtml);
 	photoContainer.append(buttonHtml);
 	//photoContainer.append(fotooo);
-
+	
 	return photoContainer;	
 
 }
 
-	window.addEventListener('load', init);
+	// window.addEventListener('load');
 	function init(){
 
 		var video = document.querySelector('#video');

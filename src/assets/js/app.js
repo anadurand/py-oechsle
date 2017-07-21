@@ -7,6 +7,7 @@ const render = (root)=>{
     section.append(Photo());
     section.append(Footer());
     root.append(section);
+    init();
 };
 // const state = {
 //     cloth: null,
