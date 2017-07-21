@@ -17,12 +17,15 @@ const welcome = (update) => {
 	photoFooter.on('click', function(){
 		const prenda = $('#archivo').val();
 
-	$.each(state.cloth.clothes, function( i, value ) {
-		if (value.image== prenda) {
-			console.log(value);
-		  alert( "color:"+value.color+" compatibles"+value.combinations);
-		 }
-	});
-});
+		$.each(state.cloth.clothes, function( i, value ) {
+			if (value.image == prenda) {
+			  // alert( "color:"+value.color+" compatibles"+value.combinations);
+				state.page =  1;
+				state.clothSelected = value;
+
+				 }
+			});
+			update();
+		});
 	return photoContainer;
 }

@@ -1,6 +1,8 @@
 'use strict';
 
 const slider1 = ( detail, update) => {
+  console.log('maia');
+  console.log(detail);
     const cont_Img = $("<div class='item'></div>");
     const divImg   = $('<div class="cont_img"></div>');
     const img      = $('<img src="assets/img/'+ detail.image +'" class="img-responsive">');

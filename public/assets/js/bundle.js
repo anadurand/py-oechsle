@@ -1,57 +1,49 @@
 "use strict";
 var render = function (root) {
-    root.empty();
-    var section = $("<section class=\"components\"></section>");
-    state.page = 1;
-    if (state.page == 0) {
-        section.append(Header());
-        section.append(welcome());
-    } else if (state.page == 1) {
-        section.append(Header());
-        section.append(Outfit());
-    } else if (state.page == 2) {}
-    root.append(section);
+  root.empty();
+
+  var section = $("<section class=\"components\"></section>");
+  // state.page =  1;
+  if (state.page == 0) {
+    section.append(Header());
+    section.append(welcome(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 1) {
+    section.append(Header());
+    section.append(Outfit());
+
+
+  } else if (state.page == 2) {}
+  root.append(section);
 };
 
 var state = {
-    page: 0,
-    cloth: null,
-    clothSelected: null
+  page: 0,
+  cloth: null,
+  clothSelected: null
+};
+
+var update = function () {
+  render(root);
 };
 
 $(function (_) {
-    var config = {
-        apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
-        authDomain: "base-7937c.firebaseapp.com",
-        databaseURL: "https://base-7937c.firebaseio.com",
-        projectId: "base-7937c",
-        storageBucket: "",
-        messagingSenderId: "305091668120"
-    };
-    firebase.initializeApp(config);
-    var database = firebase.database();
-    database.ref().on("value", function (snap) {
-        //  console.log(snap.val());
-        state.cloth = snap.val();
-        var root = $("#root");
-        render(root);
-        $(".owl-carousel").owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: false,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 5
-                }
-            }
-        });
-    });
+  var config = {
+    apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
+    authDomain: "base-7937c.firebaseapp.com",
+    databaseURL: "https://base-7937c.firebaseio.com",
+    projectId: "base-7937c",
+    storageBucket: "",
+    messagingSenderId: "305091668120"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  database.ref().on("value", function (snap) {
+    state.cloth = snap.val();
+    var root = $("#root");
+    render(root);
+  });
 });
 "use strict";
 
@@ -3287,13 +3279,17 @@ var Mixed = function () {
 "use strict";
 
 var filterBycloths = function (ropa, query) {
-  console.log(ropa);
-  console.log("Maia");
   var select = ropa.filter(function (index) {
-    return index.color.indexOf(query) != -1;
+    return index.Type.indexOf(query) != -1;
   });
-  console.log(select);
   return select;
+};
+
+var filtradosBycolors = function (colors, values) {
+  var colorselec = colors.filter(function (index) {
+    return index.color.indexOf(values) != -1;
+  });
+  return colorselec;
 };
 "use strict";
 
@@ -3326,55 +3322,99 @@ var Header = function () {
 "use strict";
 
 var Outfit = function (update) {
-
-
   var contOutfit = $("<section class=\"cont_outfit\"></section>");
   var controw = $("<div class=\"row\"></div>");
   var divSelect = $("<div id=\"img_fixed\" class=\"col-xs-8 col-xs-offset-2\"></div>");
-  var imgSelect = $("<img src=\"assets/img/blouse-c2.jpg\"  class=\"img-responsive\" alt=\"foto_selecionada\">");
+  var imgSelect = $("<img src=\"assets/img/" + state.clothSelected.image + "\"  class=\"img-responsive\" alt=\"foto_selecionada\">");
   var divOptions_1 = $("<div id=\"img_variable_1\" class=\"col-xs-8 col-xs-offset-2\"></div>");
   var secCarousel_1 = $("<div class='owl-carousel owl-theme'></div>");
 
-  var filtrados = filterBycloths(state.cloth.clothes, "pants");
-  if (filtrados.length == 0) {
-    alert("No existe ninguna prenda con su estilo");
-  } else {
-    filtrados.forEach(function (index) {
+  var filtrados = null;
+  var colores = null;
+  console.log(state.clothSelected);
+  if (state.clothSelected.Type == "blouse") {
+    var palabras = state.clothSelected.combinations.split(", ");
+    console.log(palabras);
+    $.each(state.cloth.clothes, function (i, value) {
+      filtrados = filterBycloths(state.cloth.clothes, "pants");
+      $.each(palabras, function (i, value) {
+        colores = filtradosBycolors(filtrados, value);
+      });
+    });
+    colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
-  };
+    divSelect.append(imgSelect);
+    controw.append(divSelect);
+    divOptions_1.append(secCarousel_1);
+    controw.append(divOptions_1);
+  } else if (state.clothSelected.Type == "pants") {
+    var palabras = state.clothSelected.combinations.split(", ");
+    console.log(palabras);
+
+    $.each(state.cloth.clothes, function (i, value) {
+      filtrados = filterBycloths(state.cloth.clothes, "blouse");
+      $.each(palabras, function (i, value) {
+        colores = filtradosBycolors(filtrados, value);
+      });
+    });
+
+    colores.forEach(function (index) {
+      secCarousel_1.append(slider1(index, update));
+    });
+
+    divOptions_1.append(secCarousel_1);
+    controw.append(divOptions_1);
+    divSelect.append(imgSelect);
+    controw.append(divSelect);
+  }
+
   var divOptions_2 = $("<div id=\"img_variable_2\" class=\"col-xs-7 col-xs-offset-3\"></div>");
   var secCarousel_2 = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/shoe-b1.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-b2.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-be1.jpg' class='img-responsive'></div>" + "<div class='tem'><img src='assets/img/shoe-be2.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-n1.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-n2.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-n3.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/shoe-n4.jpg' class='img-responsive'></div>" + "</div>");
   var footerOutfit = $("<div class=\"outfit-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
-
-  contOutfit.append(divSelect);
-  divSelect.append(imgSelect);
-  // divOptions_1.append(secCarousel_1);
   divOptions_2.append(secCarousel_2);
-  controw.append(divSelect);
-  // controw.append(divOptions_1);
   controw.append(divOptions_2);
-  contOutfit.append(controw);
+  contOutfit.append(controw); //Secundario
   contOutfit.append(footerOutfit);
+  $(function (_) {
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: false,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 3
+        },
+        1000: {
+          items: 5
+        }
+      }
+    });
+  });
   return contOutfit;
 };
 "use strict";
 
 var slider1 = function (detail, update) {
-    var cont_Img = $("<div class='item'></div>");
-    var divImg = $("<div class=\"cont_img\"></div>");
-    var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
-    var divText = $("<div class=\"cont_text\"></div>");
-    var name = $("<h6>" + detail.name + "</h6>");
-    var price = $("<p>Precio : " + detail.address + "</p>");
+  console.log("maia");
+  console.log(detail);
+  var cont_Img = $("<div class='item'></div>");
+  var divImg = $("<div class=\"cont_img\"></div>");
+  var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+  var divText = $("<div class=\"cont_text\"></div>");
+  var name = $("<h6>" + detail.name + "</h6>");
+  var price = $("<p>Precio : " + detail.address + "</p>");
 
-    cont_Img.append(divImg);
-    cont_Img.append(divText);
-    divImg.append(img);
-    divText.append(name);
-    divText.append(price);
+  cont_Img.append(divImg);
+  cont_Img.append(divText);
+  divImg.append(img);
+  divText.append(name);
+  divText.append(price);
 
-    return cont_Img;
+  return cont_Img;
 };
 "use strict";
 
@@ -3396,10 +3436,12 @@ var welcome = function (update) {
 
 		$.each(state.cloth.clothes, function (i, value) {
 			if (value.image == prenda) {
-				console.log(value);
-				alert("color:" + value.color + " compatibles" + value.combinations);
+				// alert( "color:"+value.color+" compatibles"+value.combinations);
+				state.page = 1;
+				state.clothSelected = value;
 			}
 		});
+		update();
 	});
 	return photoContainer;
 };
