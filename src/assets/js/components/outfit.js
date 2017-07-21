@@ -29,6 +29,7 @@ const Outfit = () => {
                           '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
                         '</div>');
 
+
   contOutfit.append(divSelect);
   divSelect.append(imgSelect) ;
   divOptions_1.append(secCarousel_1);
@@ -37,5 +38,27 @@ const Outfit = () => {
   contOutfit.append(divOptions_1);
   contOutfit.append(divOptions_2);
   contOutfit.append(footerOutfit);
+  $(document).ready(function() {
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:false,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:5
+            }
+        }
+      });
+
+  });
+
+
+
   return contOutfit;
 }

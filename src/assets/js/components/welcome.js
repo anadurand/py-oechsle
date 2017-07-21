@@ -1,4 +1,4 @@
-const welcome = () => {
+const welcome = (update) => {
 
 	const photoContainer = $('<section class="photo-container"></section>');
 	const photoCont = $('<div class="photo-container__cont"></div>');
@@ -13,6 +13,9 @@ const welcome = () => {
 	photoContainer.append(inputImagen);
   photoContainer.append(photoCont);
   photoContainer.append(photoFooter);
+
+
+	// console.log(state.cloth);
 	photoFooter.on('click', function(){
 		const prenda = $('#archivo').val();
 		console.log(prenda);
@@ -20,13 +23,15 @@ const welcome = () => {
 	$.each(state.cloth.clothes, function( i, value ) {
 		// alert("hola");
 		// console.log(state.cloth.clothes[1].image);
-		console.log(value.image);
+		// console.log(value.image);
 		if (value.image== prenda) {
-			console.log(value);
+			// console.log(value);
 		  alert( "color:"+value.color+" compatibles"+value.combinations);
-			// update();s
+			state.page=1;
 		 }
 	});
+
+	update();
 });
 
 	return photoContainer;

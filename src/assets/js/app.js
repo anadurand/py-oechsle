@@ -5,12 +5,10 @@ const render = (root)=>{
 
     if (state.page == 0){
       section.append(Header());
-      section.append(welcome());
+      section.append(welcome(_=>{render(root)}));
     }else if(state.page == 1) {
       section.append(Header());
       section.append(Outfit());
-
-    }else if(state.page == 2){
     }
     root.append(section);
 };
@@ -31,29 +29,11 @@ $( _ => {
     messagingSenderId: "305091668120"
   };
   firebase.initializeApp(config);
-  //
   var database = firebase.database();
    database.ref().on("value", function(snap){
-  //   // $('#display').html(snap.val());
    console.log(snap.val());
    state.cloth = snap.val();
+   const root = $('#root');
+   render(root);
   });
-        const root = $('#root');
-        render(root);
-        $('.owl-carousel').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:false,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:5
-                }
-            }
-          })
 })
