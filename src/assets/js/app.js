@@ -4,6 +4,7 @@ const render = (root)=>{
     const section = $('<section class="components"></section>');
     section.append(Header());
     section.append(Mixed());
+    section.append(Photo());
     section.append(Footer());
     root.append(section);
 };
