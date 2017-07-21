@@ -3287,7 +3287,7 @@ var Mixed = function () {
 
 var filterBycloths = function (ropa, query) {
   var select = ropa.filter(function (index) {
-    return index.Type.indexOf(query) != -1;
+    return index.Type == query;
   });
   return select;
   console.log(select);
@@ -3295,10 +3295,9 @@ var filterBycloths = function (ropa, query) {
 
 var filtradosBycolors = function (colors, values) {
   var colorselec = colors.filter(function (index) {
-    return index.color.indexOf(values) != -1;
+    return index.color == values;
   });
   return colorselec;
-  console.log(colorselec);
 };
 "use strict";
 
@@ -3341,26 +3340,26 @@ var Outfit = function (update) {
 
   var filtrados = null;
   var filt_shoes = null;
-  var colores = null;
-  var col_shoes = null;
+  var colores = [];
+  var col_shoes = [];
 
   if (state.clothSelected.Type == "blouse") {
     var palabras = state.clothSelected.combinations.split(", ");
-    // console.log(palabras);
+    filtrados = filterBycloths(state.cloth.clothes, "pants");
+    filt_shoes = filterBycloths(state.cloth.clothes, "shoe");
 
-    $.each(state.cloth.clothes, function (i, value) {
-      filtrados = filterBycloths(state.cloth.clothes, "pants");
-      filt_shoes = filterBycloths(state.cloth.clothes, "shoe");
-      // console.log(value);
-      console.log(filtrados);
+    $.each(filtrados, function (e, item) {
+      var filtra = palabras.indexOf(item.color);
+      if (filtra != -1) {
+        colores.push(item);
+      }
     });
-
-    $.each(filtrados, function (i, value) {
-      colores = filtradosBycolors(filtrados, value);
-      col_shoes = filtradosBycolors(filt_shoes, value);
-      console.log(value);
+    $.each(filt_shoes, function (e, item) {
+      var filtra_shoe = palabras.indexOf(item.color);
+      if (filtra_shoe != -1) {
+        col_shoes.push(item);
+      }
     });
-
     colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
@@ -3368,8 +3367,6 @@ var Outfit = function (update) {
     col_shoes.forEach(function (index) {
       secCarousel_2.append(slider2(index, update));
     });
-
-    console.log(col_shoes);
 
     divSelect.append(imgSelect);
     controw.append(divSelect);
