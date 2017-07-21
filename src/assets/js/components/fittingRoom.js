@@ -29,7 +29,24 @@ div.append(mapa);
 rowc.append(div2);
 conta.append(rows);
 
-
+const unSelect = (e)=>{
+  e.style.opacity="1";
+  ac = false;
+}
+const Select = (e)=>{
+  console.log("select" + e);
+  ac = true;
+  e.style.opacity="0.5";
+}
+let ac = false;
+$(".fitRoom--span-class").click((e)=>{
+  if(!ac){
+      Select(e.target);
+  }else{
+    unSelect(e.target);
+  }
+  console.log(e.target);
+});
 
   return secFRoom;
 }
