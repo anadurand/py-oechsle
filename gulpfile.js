@@ -17,7 +17,7 @@ const paths = {
     assets:"assets/",
     html:"**/*.html",
     sass:"scss/**/*.scss",
-    img: "img/**/*.png",
+    img: "img/**/*",
     js:"js/**/*.js",
     mainSass:"scss/main.scss"
 };
@@ -51,7 +51,7 @@ gulp.task('js', () => {
      gulp.src(sources.js)
         .pipe(toEs6())
         .pipe(concat('bundle.js'))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest(config.dist + paths.assets +"js"));
 });
 
