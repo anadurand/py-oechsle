@@ -2233,7 +2233,7 @@ $(function (_) {
    		https://vimeo.com/channels/:channel/:id
    		https://vimeo.com/groups/:group/videos/:id
    		https://app.vzaar.com/videos/:id
-   				Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
+   			Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
    */
 
 			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
@@ -3468,34 +3468,32 @@ var filterByLocal = function (locals, query) {
 
 var FittingRoom = function (update) {
   var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
-  var row = $("<div class='row margin1'>" + "<div class='margin1 col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='margin1 col-xs-10 col-sm-10 container-flex-row'><h3>Reserva una cita</h3></div>" + "</div>");
+  var row = $("<div class='row'>" + "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>" + "</div>");
   var conta = $("<div class='container'></div>");
-  var rowc = $("<div class='row margin1'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
   var div = $("<div></div>");
   var p = $("<p>select a location</p>");
   // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
   var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
   var mapa = $("<div id='mapa'></div>");
   var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
-  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>");
-  var row_btn = $("<div class='row'></div>");
-  var div_cont = $("<div class='col-xs-12 col-sm-12 container-flex-row'></div>");
-  var btn_next = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
 
+  // <div class="input-group">
+  //   <span class="input-group-addon" id="basic-addon1">@</span>
+  //   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+  // </div>
 
   secFRoom.append(row);
   secFRoom.append(conta);
   conta.append(rowc);
   rowc.append(div);
   div.append(p);
+  // div.append(iconSearch)
   div.append(inputFilter);
   div.append(mapa);
   rowc.append(div2);
   conta.append(rows);
-  div_cont.append(btn_next);
-  row_btn.append(div_cont);
-  conta.append(row_btn);
-
   inputFilter.on("keyup", function (e) {
     var find = filterByLocal(state.locals, inputFilter.val());
 
@@ -3536,11 +3534,6 @@ var FittingRoom = function (update) {
 
     return contLocal;
   };
-  btn_next.on("click", function () {
-    console.log("Nos vemos  ");
-    state.page = 4;
-    update();
-  });
 
   function initMap(local) {
     console.log(local);
@@ -3578,14 +3571,14 @@ var FittingRoom = function (update) {
     e.style.opacity = "0.5";
   };
   var ac = false;
-  // $(".fitRoom--span-class").click((e)=>{
-  //   if(!ac){
-  //       Select(e.target);
-  //   }else{
-  //     unSelect(e.target);
-  //   }
-  //   console.log(e.target);
-  // });
+  $(".fitRoom--span-class").click(function (e) {
+    if (!ac) {
+      Select(e.target);
+    } else {
+      unSelect(e.target);
+    }
+    console.log(e.target);
+  });
 
   return secFRoom;
 };

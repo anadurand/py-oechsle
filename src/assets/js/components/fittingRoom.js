@@ -1,11 +1,11 @@
 const FittingRoom = (update) => {
   const secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
-  const row = $("<div class='row margin1'>"+
-  "<div class='margin1 col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>"+
-  "<div class='margin1 col-xs-10 col-sm-10 container-flex-row'><h3>Reserva una cita</h3></div>"+
+  const row = $("<div class='row'>"+
+  "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>"+
+  "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>"+
   "</div>");
   const conta = $("<div class='container'></div>");
-  const rowc = $("<div class='row margin1'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  const rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
   const div = $("<div></div>");
   const p = $("<p>select a location</p>");
   // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
@@ -16,25 +16,25 @@ const FittingRoom = (update) => {
   const rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>"+
     "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>"+
     "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>"+
-    "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" );
-  const row_btn=$("<div class='row'></div>" );
-  const div_cont=$("<div class='col-xs-12 col-sm-12 container-flex-row'></div>");
-  const btn_next=$("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>");
+    "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>"+
+    "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>"+
+    "</div></div>");
 
+    // <div class="input-group">
+    //   <span class="input-group-addon" id="basic-addon1">@</span>
+    //   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+    // </div>
 
 secFRoom.append(row);
 secFRoom.append(conta);
 conta.append(rowc)
 rowc.append(div);
 div.append(p);
+// div.append(iconSearch)
 div.append(inputFilter);
 div.append(mapa);
 rowc.append(div2);
 conta.append(rows);
-div_cont.append(btn_next);
-row_btn.append(div_cont)
-conta.append(row_btn);
-
 inputFilter.on('keyup',(e) => {
   const find = filterByLocal(state.locals,inputFilter.val());
 
@@ -73,11 +73,6 @@ const localItem = (local, update, reRender ) => {
 
  return contLocal;
 }
-btn_next.on('click', function(){
-  console.log("Nos vemos  ");
-   state.page =  4;
-   update();
- });
 
 function initMap(local) {
  console.log(local);
@@ -115,14 +110,14 @@ const Select = (e)=>{
   e.style.opacity="0.5";
 }
 let ac = false;
-// $(".fitRoom--span-class").click((e)=>{
-//   if(!ac){
-//       Select(e.target);
-//   }else{
-//     unSelect(e.target);
-//   }
-//   console.log(e.target);
-// });
+$(".fitRoom--span-class").click((e)=>{
+  if(!ac){
+      Select(e.target);
+  }else{
+    unSelect(e.target);
+  }
+  console.log(e.target);
+});
 
   return secFRoom;
 }
