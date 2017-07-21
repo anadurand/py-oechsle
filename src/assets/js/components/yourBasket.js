@@ -6,8 +6,8 @@ const  Yourbasket = () =>{
   const rowc = $("<div class='row></div>");
   const imgSelected = $("<div id='imgSelected'></div>");
   const rowc2 = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'></div></div>");
-  const btnbuy = $("<button type='button' name='button' class='col-xs-12 col-sm-12 shopCart--button-class pd'>Buy</button>");
-  const btnfttr =$("<button type='button' name='button' class='col-xs-12 col-sm-12 shopCart--button-class pd'>Send to fitting room</button>");
+  const btnbuy = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class pd'>Buy</button>");
+  const btnfttr =$("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class pd'>Send to fitting room</button>");
 
   secYourBasket.append(row1);
   secYourBasket.append(conta);
