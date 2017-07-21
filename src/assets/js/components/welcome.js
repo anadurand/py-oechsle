@@ -14,25 +14,17 @@ const welcome = (update) => {
   photoContainer.append(photoCont);
   photoContainer.append(photoFooter);
 
-
-	// console.log(state.cloth);
 	photoFooter.on('click', function(){
 		const prenda = $('#archivo').val();
-		console.log(prenda);
 
-	$.each(state.cloth.clothes, function( i, value ) {
-		// alert("hola");
-		// console.log(state.cloth.clothes[1].image);
-		// console.log(value.image);
-		if (value.image== prenda) {
-			// console.log(value);
-		  alert( "color:"+value.color+" compatibles"+value.combinations);
-			state.page=1;
-		 }
-	});
-
-	update();
-});
-
+		$.each(state.cloth.clothes, function( i, value ) {
+			if (value.image == prenda) {
+			  // alert( "color:"+value.color+" compatibles"+value.combinations);
+				state.page =  1;
+				state.clothSelected = value;
+				 }
+			});
+			update();
+		});
 	return photoContainer;
 }

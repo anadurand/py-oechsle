@@ -1,8 +1,14 @@
 "use strict";
 var render = function (root) {
   root.empty();
+<<<<<<< HEAD
   var section = $("<section class=\"components\"></section>");
 
+=======
+
+  var section = $("<section class=\"components\"></section>");
+  // state.page =  1;
+>>>>>>> origin/components
   if (state.page == 0) {
     section.append(Header());
     section.append(welcome(function (_) {
@@ -11,17 +17,34 @@ var render = function (root) {
   } else if (state.page == 1) {
     section.append(Header());
     section.append(Outfit());
+<<<<<<< HEAD
   }
+=======
+
+
+  } else if (state.page == 2) {}
+>>>>>>> origin/components
   root.append(section);
 };
+
 var state = {
   page: 0,
   cloth: null,
   clothSelected: null
+<<<<<<< HEAD
 };
 
 $(function (_) {
   // Initialize Firebase
+=======
+};
+
+var update = function () {
+  render(root);
+};
+
+$(function (_) {
+>>>>>>> origin/components
   var config = {
     apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
     authDomain: "base-7937c.firebaseapp.com",
@@ -33,7 +56,10 @@ $(function (_) {
   firebase.initializeApp(config);
   var database = firebase.database();
   database.ref().on("value", function (snap) {
+<<<<<<< HEAD
     console.log(snap.val());
+=======
+>>>>>>> origin/components
     state.cloth = snap.val();
     var root = $("#root");
     render(root);
@@ -2194,7 +2220,7 @@ $(function (_) {
    		https://vimeo.com/channels/:channel/:id
    		https://vimeo.com/groups/:group/videos/:id
    		https://app.vzaar.com/videos/:id
-   				Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
+   			Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
    */
 
 			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
@@ -3272,6 +3298,23 @@ var Mixed = function () {
 };
 "use strict";
 
+var filterBycloths = function (ropa, query) {
+  console.log(ropa);
+  var select = ropa.filter(function (index) {
+    return index.Type.indexOf(query) != -1;
+  });
+  return select;
+};
+
+var filtradosBycolors = function (colors, values) {
+  var colorselec = colors.filter(function (index) {
+    return index.color.indexOf(values) != -1;
+  });
+  return colorselec;
+  console.log(colorselec);
+};
+"use strict";
+
 var Footer = function () {
 	var footerContainer = $("<footer class='footer-container'></footer>");
 
@@ -3299,6 +3342,7 @@ var Header = function () {
 };
 "use strict";
 
+<<<<<<< HEAD
 var Outfit = function () {
   var contOutfit = $("<section class=\"contOutfit\"></section>");
   var divSelect = $("<div id=\"img_fixed size_img\"></div>");
@@ -3319,6 +3363,89 @@ var Outfit = function () {
   contOutfit.append(divOptions_2);
   contOutfit.append(footerOutfit);
   $(document).ready(function () {
+=======
+var Outfit = function (update) {
+  var contOutfit = $("<section class=\"cont_outfit\"></section>");
+  var controw = $("<div class=\"row\"></div>");
+  var divSelect = $("<div id=\"img_fixed\" class=\"col-xs-8 col-xs-offset-2\"></div>");
+  var imgSelect = $("<img src=\"assets/img/" + state.clothSelected.image + "\"  class=\"img-responsive\" alt=\"foto_selecionada\">");
+  var divOptions_1 = $("<div id=\"img_variable_1\" class=\"col-xs-8 col-xs-offset-2\"></div>");
+  var secCarousel_1 = $("<div class='owl-carousel owl-theme'></div>");
+  var divOptions_2 = $("<div id=\"img_variable_2\" class=\"col-xs-7 col-xs-offset-3\"></div>");
+  var secCarousel_2 = $("<div class='owl-carousel owl-theme'></div>");
+
+  var filtrados = null;
+  var filt_shoes = null;
+  var colores = null;
+  var col_shoes = null;
+
+  if (state.clothSelected.Type == "blouse") {
+    var palabras = state.clothSelected.combinations.split(", ");
+    console.log(palabras);
+    $.each(state.cloth.clothes, function (i, value) {
+      filtrados = filterBycloths(state.cloth.clothes, "pants");
+      // filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
+      // console.log(filt_shoes);
+      console.log(filtrados);
+      $.each(palabras, function (i, value) {
+        colores = filtradosBycolors(filtrados, value);
+        // col_shoes =filtradosBycolors(filt_shoes ,value);
+        // console.log(col_shoes);
+      });
+    });
+    colores.forEach(function (index) {
+      secCarousel_1.append(slider1(index, update));
+    });
+    // col_shoes.forEach( function( index) {
+    //   secCarousel_2.append(slider2(index, update));
+    // });
+
+    console.log(col_shoes);
+
+    divSelect.append(imgSelect);
+    controw.append(divSelect);
+    divOptions_1.append(secCarousel_1);
+    controw.append(divOptions_1);
+    divOptions_2.append(secCarousel_2);
+    controw.append(divOptions_2);
+  } else if (state.clothSelected.Type == "pants") {
+    var palabras = state.clothSelected.combinations.split(", ");
+    console.log(palabras);
+
+    $.each(state.cloth.clothes, function (i, value) {
+      filtrados = filterBycloths(state.cloth.clothes, "blouse");
+      $.each(palabras, function (i, value) {
+        colores = filtradosBycolors(filtrados, value);
+      });
+    });
+
+    colores.forEach(function (index) {
+      secCarousel_1.append(slider1(index, update));
+    });
+
+    divOptions_1.append(secCarousel_1);
+    controw.append(divOptions_1);
+    divSelect.append(imgSelect);
+    controw.append(divSelect);
+  }
+  //
+  // const divOptions_2 = $('<div id="img_variable_2" class="col-xs-7 col-xs-offset-3"></div>');
+  // const secCarousel_2 = $("<div class='owl-carousel owl-theme'>"+
+  //                     "<div class='item'><img src='assets/img/shoe-b1.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-b2.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-be1.jpg' class='img-responsive'></div>"+
+  //                     "<div class='tem'><img src='assets/img/shoe-be2.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-n1.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-n2.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-n3.jpg' class='img-responsive'></div>"+
+  //                     "<div class='item'><img src='assets/img/shoe-n4.jpg' class='img-responsive'></div>"+
+  //                     "</div>");
+  var footerOutfit = $("<div class=\"outfit-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
+
+  contOutfit.append(controw); //Secundario
+  contOutfit.append(footerOutfit);
+  $(function (_) {
+>>>>>>> origin/components
     $(".owl-carousel").owlCarousel({
       loop: true,
       margin: 10,
@@ -3336,6 +3463,7 @@ var Outfit = function () {
       }
     });
   });
+<<<<<<< HEAD
 
 
 
@@ -3343,6 +3471,50 @@ var Outfit = function () {
 };
 "use strict";
 
+=======
+  return contOutfit;
+};
+"use strict";
+
+var slider1 = function (detail, update) {
+  console.log(detail);
+  var cont_Img = $("<div class='item'></div>");
+  var divImg = $("<div class=\"cont_img\"></div>");
+  var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+  var divText = $("<div class=\"cont_text\"></div>");
+  var name = $("<h6>" + detail.name + "</h6>");
+  var price = $("<p>Precio : " + detail.price + "</p>");
+
+  cont_Img.append(divImg);
+  cont_Img.append(divText);
+  divImg.append(img);
+  divText.append(name);
+  divText.append(price);
+
+  return cont_Img;
+};
+"use strict";
+
+var slider2 = function (detail, update) {
+  console.log(detail);
+  var cont_Img = $("<div class='item'></div>");
+  var divImg = $("<div class=\"cont_img\"></div>");
+  var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+  var divText = $("<div class=\"cont_text\"></div>");
+  var name = $("<h6>" + detail.name + "</h6>");
+  var price = $("<p>Precio : " + detail.price + "</p>");
+
+  cont_Img.append(divImg);
+  cont_Img.append(divText);
+  divImg.append(img);
+  divText.append(name);
+  divText.append(price);
+
+  return cont_Img;
+};
+"use strict";
+
+>>>>>>> origin/components
 var welcome = function (update) {
 	var photoContainer = $("<section class=\"photo-container\"></section>");
 	var photoCont = $("<div class=\"photo-container__cont\"></div>");
@@ -3356,13 +3528,16 @@ var welcome = function (update) {
 	photoContainer.append(photoCont);
 	photoContainer.append(photoFooter);
 
+<<<<<<< HEAD
 
 	// console.log(state.cloth);
+=======
+>>>>>>> origin/components
 	photoFooter.on("click", function () {
 		var prenda = $("#archivo").val();
-		console.log(prenda);
 
 		$.each(state.cloth.clothes, function (i, value) {
+<<<<<<< HEAD
 			// alert("hola");
 			// console.log(state.cloth.clothes[1].image);
 			// console.log(value.image);
@@ -3373,8 +3548,15 @@ var welcome = function (update) {
 			}
 		});
 
+=======
+			if (value.image == prenda) {
+				// alert( "color:"+value.color+" compatibles"+value.combinations);
+				state.page = 1;
+				state.clothSelected = value;
+			}
+		});
+>>>>>>> origin/components
 		update();
 	});
-
 	return photoContainer;
 };
