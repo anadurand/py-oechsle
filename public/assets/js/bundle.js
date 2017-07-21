@@ -70,55 +70,58 @@ var Photo = function () {
 	var imgHtml = $("<img id='img' src=''>");
 	var canvasHtml = $("<canvas id='canva'></canvas>");
 	var buttonHtml = $("<button id='button'>Toma una foto</button>");
+	var fotooo = $("<input type=\"file\" name=\"foto\" id=\"foto\" class=\"SubirFoto\" accept=\"image/*\" capture=\"camera\" />");
 
 	photoContainer.append(videoHtml);
 	photoContainer.append(imgHtml);
 	photoContainer.append(canvasHtml);
 	photoContainer.append(videoHtml);
 	photoContainer.append(buttonHtml);
+	photoContainer.append(fotooo);
 
 	return photoContainer;
-};
-
-// $(document).ready(function(){
 
 
-// });
+	window.addEventListener("load", init);
+	function init() {
+		var video = document.querySelector("#video");
+		var canvas = document.querySelector("#canva");
+		var button = document.querySelector("#button");
+		var img = document.querySelector("#img");
 
+		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+		if (navigator.getUserMedia) {
+			navigator.getUserMedia({ video: true }, function (stream) {
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+			}, function (error) {
+				console.log(error);
+			});
+		} else alert("Tienes un navegador obsoleto");
 
-// }
+		video.addEventListener("loadedmetadata", function () {
+			console.log(canvas.width);
+			canvas.width = video.videoWidth;
+			canvas.height = video.videoHeight;
+		}, false);
 
-window.addEventListener("load", init);
-function init() {
-	var video = document.querySelector("#video");
-	var canvas = document.querySelector("#canva");
-	var button = document.querySelector("#button");
-	var img = document.querySelector("#img");
-
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-	if (navigator.getUserMedia) {
-		navigator.getUserMedia({ video: true }, function (stream) {
-			video.src = window.URL.createObjectURL(stream);
-			video.play();
-		}, function (error) {
-			console.log(error);
+		button.addEventListener("click", function () {
+			canvas.getContext("2d").drawImage(video, 0, 0);
+			var imgData = canvas.toDataURL("image/png");
+			img.setAttribute("src", imgData);
 		});
-	} else alert("Tienes un navegador obsoleto");
-
-	video.addEventListener("loadedmetadata", function () {
-		console.log(canvas.width);
-		canvas.width = video.videoWidth;
-		canvas.height = video.videoHeight;
-	}, false);
-
-	button.addEventListener("click", function () {
-		canvas.getContext("2d").drawImage(video, 0, 0);
-		var imgData = canvas.toDataURL("image/png");
-		img.setAttribute("src", imgData);
-	});
 
 
-}
+	}
+
+	// }	
+
+	// $(document).ready(function(){
+
+
+	// });
+
+};
 "use strict";
 
 var Header = function () {

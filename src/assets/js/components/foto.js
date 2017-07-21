@@ -4,12 +4,14 @@
 	const imgHtml = $("<img id='img' src=''>");
 	const canvasHtml = $("<canvas id='canva'></canvas>");
 	const buttonHtml = $("<button id='button'>Toma una foto</button>");
+	const fotooo= $('<input type="file" name="foto" id="foto" class="SubirFoto" accept="image/*" capture="camera" />');
 
 	photoContainer.append(videoHtml);
 	photoContainer.append(imgHtml);
 	photoContainer.append(canvasHtml);
 	photoContainer.append(videoHtml);
 	photoContainer.append(buttonHtml);
+	photoContainer.append(fotooo);
 
 	return photoContainer;	
 
@@ -49,7 +51,7 @@
 		
 }
 
-}	
+// }	
 	
 // $(document).ready(function(){
 
@@ -57,6 +59,6 @@
 // });
  	
 
-// }
+}
 
 
