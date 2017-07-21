@@ -9,7 +9,7 @@ const Header = () => {
 																'<span class="icon-bar"></span>'+
 																'<span class="icon-bar"></span>'+
 															'</button>'+
-															'<a class="navbar-brand center" href="#"><div class="img-size"><img src="assets/img/oe.png" class="img-responsive" alt="logo"></div></a>'+
+															'<a class="navbar-brand center" href="#"><div class="img-size"><img src="assets/img/logo.png" class="img-responsive" alt="logo"></div></a>'+
 															'<a class="navbar-brand right" href="#"><i class="glyphicon glyphicon-shopping-cart"></i></a>'+
 														'</div>');
 	const div_collapse      = $('<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">'+

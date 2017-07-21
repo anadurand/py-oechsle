@@ -1,6 +1,6 @@
-@extend "owl.carousel";
-@extend "owl.theme.default";
-@extend "owl.theme.green";
+@import "owlcarousel";
+@import "owlthemedefault";
+@import "owlthemegreen";
 @import "variables";
 @import "colors";
 html,body{

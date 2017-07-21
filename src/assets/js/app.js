@@ -7,6 +7,7 @@ const render = (root)=>{
       section.append(Header());
       section.append(welcome());
     }else {
+      section.append(Header());
       section.append(Outfit());
     }
 
@@ -21,5 +22,20 @@ const state = {
 $( _ => {
         const root = $('#root');
         render(root);
-        console.log(state.cloth);
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:false,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+          })
 })
