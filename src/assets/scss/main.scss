@@ -19,6 +19,9 @@ header{
     margin-left: 15px;
 
   }
+#video{
+  width: 100% !important;
+}
   a.center{
     padding-left: 30%;
     div.img-size{
@@ -30,13 +33,52 @@ header{
     float: right;
   }
 }
+.textoInicio{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px;
+  background-color: white;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  .close{
+    display: none;
+  }
+
+}
+.img{
+position: absolute;
+height: 100%;
+right: 33%;
+}
+#canva, #img{
+  width: 100%;
+}
+.navbar-default .navbar-toggle {
+   border-color: transparent;
+  }
+.navbar-header{
+    position: relative;
+  }
+.navbar-default {
+   background-color: white !important;
+ }
+.navbar-toggle:hover {
+    background-color: white;
+}
 section.photo-container{
-  background-color: $gray-ligth;
+  background-color: #fffdfd;
   display: flex;
   flex-direction: column;
   align-items: center;
   div.photo-container__cont{
-    background-color:$gray-ligth;
+    background-color:#fffdfd;
     div.cont_text{
       padding: 5%;
       text-align: justify;

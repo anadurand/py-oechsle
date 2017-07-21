@@ -1,15 +1,14 @@
 const welcome = (update) => {
 
 	const photoContainer = $('<section class="photo-container"></section>');
-	const photoCont = $('<div class="photo-container__cont"></div>');
-  const divMsj  = $('<div class="cont_text"><h4>Bienvenida al App de Oechsle.<br>Oechsle es la Tienda por Departamento del Grupo Intercorp. Somos parte de un grupo empresarial comprometido con el desarrollo y bienestar de las familias Peruanas. </h4></div>')
 
-	const videoHtml = $("<video id='video' width='250' height='250'></video>");
-	    const imgHtml = $("<img id='img' src='' width='250' height='250'>");
+	const photoCont = $('<div class="photo-container__cont"></div>');
+  const divMsj  = $('<div class="cont_text"><h4>Tómale una foto a la prenda que quieras combinar y nosotros te armamos el outfit!</h4></div>')
+
+	const videoHtml = $("<video id='video' width='100%'></video>");
+	    const imgHtml = $("<img id='img' src=''>");
 	    const canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
 	    const buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
-	    //const downloadHtml = $("<a href='#' class='button' id='btn-download' download='blouse-n2.jpg'>Download</a>");
-
 
 	const imgPhoto = $('<img src="http://cdn.modalia.es/images/stories/2015/febrero/hm-chaquetas-ss15/hm-chaquetas-ss15_6.jpg" class="img-responsive" alt="chaqueta">');
   const photoFooter = $('<div class="photo-container__footer"></div>');
@@ -17,9 +16,12 @@ const welcome = (update) => {
 
   photoCont.append(divMsj);
   photoContainer.append(photoCont);
-
-
 	photoContainer.append(videoHtml);
+	photoCont.append(divMsj);
+	$('.close').on('click', function(){
+		$('.close').addClass('close');
+	})
+
 	    photoContainer.append(imgHtml);
 	    photoContainer.append(canvasHtml);
 	    photoContainer.append(videoHtml);
