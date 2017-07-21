@@ -17,8 +17,6 @@ const slider1 = ( detail, update) => {
 
     enlace1.on('click', function(){
       buyselect1.push(detail);
-      console.log(detail);
-      console.log(buyselect1);
     });
   return enlace1;
 }

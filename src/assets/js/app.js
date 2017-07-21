@@ -1,20 +1,30 @@
 "use strict";
 const render = (root)=>{
    root.empty();
+
    const section = $('<section class="components"></section>');
+
    if (state.page == 0){
      section.append(Header( _ => {
      render(root);}));
      section.append(welcome( _ => {
      render(root);}));
+
    } else if(state.page == 1) {
      section.append(Header( _ => {
      render(root);}));
      section.append(Outfit( _ => {
      render(root);}));
-   }else if(state.page == 2){
-     section.append(Yourbasket());
+
+   } else if(state.page == 2){
+     section.append(Yourbasket( _ => {
+     render(root);}));
+
+   } else if(state.page == 3){
+     section.append(FittingRoom( _ => {
+     render(root);}));
    }
+
    root.append(section);
    init();
 };
