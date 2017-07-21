@@ -13,17 +13,8 @@
 
 	return photoContainer;	
 
-}	
-	
-// $(document).ready(function(){
 
-
-// });
- 	
-
-// }
-
-window.addEventListener('load', init);
+	window.addEventListener('load', init);
 	function init(){
 
 		var video = document.querySelector('#video');
@@ -57,3 +48,15 @@ window.addEventListener('load', init);
 	
 		
 }
+
+}	
+	
+// $(document).ready(function(){
+
+
+// });
+ 	
+
+// }
+
+
