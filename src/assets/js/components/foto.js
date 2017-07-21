@@ -1,18 +1,20 @@
 	const Photo = () => {
 	const photoContainer = $("<div class='fotoContainer'>Hola</div>");
-	const videoHtml = $("<video id='video'></video>");
-	const imgHtml = $("<img id='img' src=''>");
-	const canvasHtml = $("<canvas id='canva'></canvas>");
+	const videoHtml = $("<video id='video' width='150' height='150'></video>");
+	const imgHtml = $("<img id='img' src='' width='150' height='150'>");
+	const canvasHtml = $("<canvas id='canva' width='150' height='150'></canvas>");
 	const buttonHtml = $("<button id='button'>Toma una foto</button>");
-	//const fotooo= $('<div id="Selector"><input type="file" name="foto" id="foto" class="SubirFoto" accept="image/*" capture="camera" /><label for="foto"><figure><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg></figure> <span>Envía una foto...</span></label></div>');
+	const downloadHtml = $("<a href='#' class='button' id='btn-download' download='blouse-n2.jpg'>Download</a>");
+	
 
    	photoContainer.append(videoHtml);
 	photoContainer.append(imgHtml);
 	photoContainer.append(canvasHtml);
 	photoContainer.append(videoHtml);
 	photoContainer.append(buttonHtml);
-	//photoContainer.append(fotooo);
+	photoContainer.append(downloadHtml);
 	
+
 	return photoContainer;	
 
 }
@@ -37,7 +39,7 @@
 		} else alert("Tienes un navegador obsoleto");	
 
 		video.addEventListener('loadedmetadata', function(){
-			console.log(canvas.width);
+
 			canvas.width = video.videoWidth;
 			canvas.height = video.videoHeight;		
 		}, false);
@@ -46,8 +48,24 @@
 			canvas.getContext('2d').drawImage(video,0,0);
 			var imgData = canvas.toDataURL('image/png');
 			img.setAttribute('src', imgData);
-		}) 
+			state.photoTaken = imgData;
+			console.log(state.photoTaken);
+			canvas.style.display = 'none';
+			video.style.display = 'none';
+
+		});
+
+		var btn = document.getElementById('btn-download');
+		btn.addEventListener('click', function (e) {
+		var dataURL = canvas.toDataURL('image/png');
+		btn.href = dataURL;
+	 
+		});
+
+
+
+
 
 	
 		
-	}
+}
