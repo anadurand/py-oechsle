@@ -15,10 +15,17 @@
 .fitRoom--input-class , .fitRoom--input-class:focus{
   border-style: none none solid none;
   outline: 0;
+  width: 100%
 }
 .fitRoom--span-class {
   border-style: solid;
 }
 .fitRoom--span-pd{
-  padding: 3rem;
+  padding: 10px;
+}
+.fitRoom--button-class{
+  background-color: rgb(83, 67, 194);
+  border-style: none;
+  color: white;
+  border-radius: 10px;
 }

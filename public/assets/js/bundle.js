@@ -2217,7 +2217,7 @@ $(function (_) {
    		https://vimeo.com/channels/:channel/:id
    		https://vimeo.com/groups/:group/videos/:id
    		https://app.vzaar.com/videos/:id
-   			Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
+   				Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
    */
 
 			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
@@ -3283,9 +3283,9 @@ $(function (_) {
 "use strict";
 
 var Carousel = function () {
-                    var secCarousel = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/jean-1.jpg'></div>" + "<div class='item'><img src='assets/img/jean-2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-b1.jpg'></div>" + "<div class='tem'><img src='assets/img/pants-b2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n2.jpg'></div>" + "</div>");
+  var secCarousel = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/jean-1.jpg'></div>" + "<div class='item'><img src='assets/img/jean-2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-b1.jpg'></div>" + "<div class='tem'><img src='assets/img/pants-b2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n2.jpg'></div>" + "</div>");
 
-                    return secCarousel;
+  return secCarousel;
 };
 "use strict";
 
@@ -3302,129 +3302,176 @@ var Mixed = function () {
 };
 "use strict";
 
-// const FittingRoom = () => {
-//   const secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
-//
-//   const conta = $("<div class='container'></div>");
-//   const rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
-//   const div = $("<div></div>");
-//   const p = $("<p>select a location</p>");
-//   const inputFilter = $("<input type='text' class='fitRoom--input-class'>");
-//   const mapa = $("<div id='mapa'></div>");
-//   const div2 = $("<div><p>select a date and time</p>"+
-//   "<input type='text' class='fitRoom--input-class'></div>");
-//   const rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>"+
-//   "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>"+
-//   "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>"+
-//   "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>"+
-//   "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>"+
-//   "</div></div>");
-//   secFRoom.append(row);
-//   secFRoom.append(conta);
-//   conta.append(rowc)
-//   rowc.append(div);
-//   div.append(p);
-//   div.append(inputFilter);
-//   div.append(mapa);
-//   rowc.append(div2);
-//   conta.append(rows);
-//   return secFRoom;
-// }
-//
-// const header = _ => {
-//   const local = $("<div class='row'>"+
-//   "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>"+
-//   "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>"+
-//   "</div>");
-//   return row;
-// };
-
 var FittingRoom = function (update) {
-  var container = $("<div class=\"container\"></div>");
-  var row = $("<div class=\"row \"></div>");
-  var iconSearch = $("<span  class=\"glyphicon glyphicon-search\"></span>");
-  var search = $("<input class=\"input-search col s12\" placeholder=\"Ingresa tu distrito a buscar\"></input>");
-  var rowContainer = $("<div class=\"row \" id=\"locals\"></div>");
+  var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
+  var row = $("<div class='row'>" + "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>" + "</div>");
+  var conta = $("<div class='container'></div>");
+  var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  var div = $("<div></div>");
+  var p = $("<p>select a location</p>");
+  var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
+  var mapa = $("<div id='mapa'></div>");
+  var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
 
-  row.append(iconSearch);
-  row.append(search);
+  secFRoom.append(row);
+  secFRoom.append(conta);
+  conta.append(rowc);
+  rowc.append(div);
+  div.append(p);
+  div.append(inputFilter);
+  div.append(mapa);
+  rowc.append(div2);
+  conta.append(rows);
+  inputFilter.on("keyup", function (e) {
+    var find = filterByLocal(state.locals, inputFilter.val());
 
-  container.append(row);
-  container.append(rowContainer);
-
-  search.on("keyup", function (e) {
-    var find = filterByLocal(state.locals, search.val());
-
-    reRender(rowContainer, find, update);
+    reRender(mapa, find, update);
   });
+  var reRender = function (mapa, find, update) {
+    mapa.empty();
+    find.forEach(function (local) {
+      mapa.append(localItem(local, update, function (_) {
+        reRender(mapa, find);
+      }));
+    });
+  };
+  var localItem = function (local, update, reRender) {
+    var contLocal = $("<div class=\"col-xs-12\"></div>");
+    var contName = $("<div class=\"col-xs-9\"></div>");
+    var name = $("<h5>" + local["data-store"] + "</h5>");
+    var contLink = $("<div class=\"col-xs-3 center-align\"></div>");
+    var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
+    var contAddres = $("<div class=\"col-xs-12 item-local\"></div>");
+    var address = $("<p>" + local.address + "<br>" + "-" + local["data-province"] + "</p>");
 
-  return container;
-};
+    contName.append(name);
+    contLink.append(mapIcon);
+    contAddres.append(address);
 
-var reRender = function (rowContainer, find, update) {
-  rowContainer.empty();
+    contLocal.append(contName);
+    contLocal.append(contLink);
+    contLocal.append(contAddres);
 
-  find.forEach(function (local) {
-    rowContainer.append(localItem(local, update, function (_) {
-      reRender(rowContainer, find);
-    }));
-  });
-};
+    mapIcon.on("click", function (e) {
+      e.preventDefault();
+      state.localSelected = local;
+      $("#mapa").empty();
 
-var localItem = function (local, update, reRender) {
-  var contLocal = $("<div class=\"col-xs-12\"></div>");
+      initMap(local);
+    });
 
-  var contName = $("<div class=\"col-xs-9\"></div>");
-  var name = $("<h5>" + local["data-store"] + "</h5>");
-  var contLink = $("<div class=\"col-xs-3 center-align\"></div>");
-  var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
+    return contLocal;
+  };
 
-  var contAddres = $("<div class=\"col-xs-12 item-local\"></div>");
-  var address = $("<p>" + local.address + "<br>" + "-" + local["data-province"] + "</p>");
+  function initMap(local) {
+    console.log(local);
 
-  contName.append(name);
-  contLink.append(mapIcon);
-  contAddres.append(address);
+    var map = new google.maps.Map(document.getElementById("mapa"), {
+      center: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) },
+      zoom: 17
+    });
 
-  contLocal.append(contName);
-  contLocal.append(contLink);
-  contLocal.append(contAddres);
+    var marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) }
+    });
+    marker.addListener("load", toggleBounce);
 
-  mapIcon.on("click", function (e) {
-    e.preventDefault();
-    state.localSelected = local;
-    $("#locals").empty();
-
-    initMap(local);
-  });
-
-  return contLocal;
-};
-
-function initMap(local) {
-  console.log(local);
-
-  var map = new google.maps.Map(document.getElementById("locals"), {
-    center: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) },
-    zoom: 17
-  });
-
-  var marker = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) }
-  });
-  marker.addListener("load", toggleBounce);
-
-  function toggleBounce() {
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
     }
   }
+
+
+  var unSelect = function (e) {
+    e.style.opacity = "1";
+    ac = false;
+  };
+  var Select = function (e) {
+    console.log("select" + e);
+    ac = true;
+    e.style.opacity = "0.5";
+  };
+  var ac = false;
+  $(".fitRoom--span-class").click(function (e) {
+    if (!ac) {
+      Select(e.target);
+    } else {
+      unSelect(e.target);
+    }
+    console.log(e.target);
+  });
+
+  return secFRoom;
 }
+
+// const FittingRoom = (update) => {
+//  const container = $('<div class="container"></div>');
+//  const row = $('<div class="row "></div>');
+//  const iconSearch = $('<span  class="glyphicon glyphicon-search"></span>');
+//  const search = $('<input class="col s12" placeholder="Ingresa tu tienda a buscar"></input>');
+//  const rowContainer = $('<div class="row " id="locals"></div>');
+//
+//  row.append(iconSearch);
+//  row.append(search);
+//
+//  container.append(row);
+//  container.append(rowContainer);
+//
+//  search.on('keyup',(e) => {
+//    const find = filterByLocal(state.locals,search.val());
+//
+//    reRender (rowContainer, find, update);
+//  });
+//
+//  return container;
+// }
+
+// const reRender = (rowContainer, find, update) => {
+//  rowContainer.empty();
+//
+//  find.forEach((local)=>{
+//    rowContainer.append(localItem(local,update,_=> {reRender(rowContainer, find);}));
+//  });
+// }
+
+// const localItem = (local, update, reRender ) => {
+//  const contLocal=  $('<div class="col-xs-12"></div>');
+//
+//  const contName= $('<div class="col-xs-9"></div>');
+//  const name = $('<h5>'+ local["data-store"] +'</h5>');
+//  const contLink = $('<div class="col-xs-3 center-align"></div>');
+//  const mapIcon = $('<i class="glyphicon glyphicon-map-marker"></i>');
+//
+//  const contAddres = $('<div class="col-xs-12 item-local"></div>');
+//  const address= $('<p>'+ local.address +'<br>'+ "-" + local["data-province"]+'</p>');
+//
+//  contName.append(name);
+//  contLink.append(mapIcon);
+//  contAddres.append(address);
+//
+//  contLocal.append(contName);
+//  contLocal.append(contLink);
+//  contLocal.append(contAddres);
+//
+//  mapIcon.on('click',(e) => {
+//    e.preventDefault();
+//    state.localSelected = local;
+//    $("#locals").empty();
+//
+//    initMap(local);
+//  });
+//
+//  return contLocal;
+// }
+;
 "use strict";
 
 var Footer = function () {
