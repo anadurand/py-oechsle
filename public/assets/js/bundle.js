@@ -18,7 +18,9 @@ var render = function (root) {
 var state = {
   page: 0,
   cloth: null,
-  clothSelected: null
+  clothSelected: null,
+  locals: null,
+  localSelected: null
 };
 
 $(function (_) {
@@ -3328,7 +3330,7 @@ var localsSearch = function (update) {
   var row = $("<div class=\"row \"></div>");
   var iconSearch = $("<span  class=\"\">search</span>");
   var search = $("<input class=\"input-search col s12\" placeholder=\"Ingresa tu distrito a buscar\"></input>");
-  var rowContainer = $("<div class=\"row locals\"></div>");
+  var rowContainer = $("<div class=\"row \" id=\"locals\"></div>");
 
   row.append(iconSearch);
   row.append(search);
@@ -3336,7 +3338,6 @@ var localsSearch = function (update) {
   container.append(row);
   container.append(rowContainer);
 
-  console.log(update);
   search.on("keyup", function (e) {
     var find = filterByLocal(state.locals, search.val());
 
@@ -3350,7 +3351,6 @@ var reRender = function (rowContainer, find, update) {
   rowContainer.empty();
 
   find.forEach(function (local) {
-    console.log(local);
     rowContainer.append(localItem(local, update, function (_) {
       reRender(rowContainer, find);
     }));
@@ -3362,7 +3362,6 @@ var localItem = function (local, update, reRender) {
 
   var contName = $("<div class=\"col-xs-9\"></div>");
   var name = $("<h5>" + local["data-store"] + "</h5>");
-  console.log(name);
   var contLink = $("<div class=\"col-xs-3 center-align\"></div>");
   var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
 
@@ -3379,13 +3378,39 @@ var localItem = function (local, update, reRender) {
 
   mapIcon.on("click", function (e) {
     e.preventDefault();
+    state.localSelected = local;
+    $("#locals").empty();
 
-    state.selectedLocal = local;
-    update();
+    initMap(local);
   });
 
   return contLocal;
 };
+
+function initMap(local) {
+  console.log(local);
+
+  var map = new google.maps.Map(document.getElementById("locals"), {
+    center: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) },
+    zoom: 17
+  });
+
+  var marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) }
+  });
+  marker.addListener("load", toggleBounce);
+
+  function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+}
 "use strict";
 
 var Footer = function () {

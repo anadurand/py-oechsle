@@ -18,7 +18,9 @@ const render = (root)=>{
 const state = {
     page: 0,
     cloth: null,
-    clothSelected : null
+    clothSelected: null,
+    locals: null,
+    localSelected: null
 };
 
 $( _ => {

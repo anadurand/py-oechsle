@@ -28,7 +28,7 @@ const localsSearch = (update) => {
   const row = $('<div class="row "></div>');
   const iconSearch = $('<span  class="">search</span>');
   const search = $('<input class="input-search col s12" placeholder="Ingresa tu distrito a buscar"></input>');
-  const rowContainer = $('<div class="row locals"></div>');
+  const rowContainer = $('<div class="row " id="locals"></div>');
 
   row.append(iconSearch);
   row.append(search);
@@ -36,7 +36,6 @@ const localsSearch = (update) => {
   container.append(row);
   container.append(rowContainer);
 
-  console.log(update);
   search.on('keyup',(e) => {
     const find = filterByLocal(state.locals,search.val());
 
@@ -50,9 +49,7 @@ const reRender = (rowContainer, find, update) => {
   rowContainer.empty();
 
   find.forEach((local)=>{
-    console.log(local);
     rowContainer.append(localItem(local,update,_=> {reRender(rowContainer, find);}));
-
   });
 }
 
@@ -61,7 +58,6 @@ const localItem = (local, update, reRender ) => {
 
   const contName= $('<div class="col-xs-9"></div>');
   const name = $('<h5>'+ local["data-store"] +'</h5>');
-  console.log(name);
   const contLink = $('<div class="col-xs-3 center-align"></div>');
   const mapIcon = $('<i class="glyphicon glyphicon-map-marker"></i>');
 
@@ -78,10 +74,36 @@ const localItem = (local, update, reRender ) => {
 
   mapIcon.on('click',(e) => {
     e.preventDefault();
+    state.localSelected = local;
+    $("#locals").empty();
 
-    state.selectedLocal = local;
-    update();
+    initMap(local);
   });
 
   return contLocal;
+}
+
+function initMap(local) {
+  console.log(local);
+
+  const  map = new google.maps.Map(document.getElementById('locals'), {
+    center: {lat: parseFloat(local.lat), lng: parseFloat(local.lng)},
+    zoom: 17
+  });
+
+  const marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: {lat: parseFloat(local.lat), lng:parseFloat(local.lng)}
+  });
+  marker.addListener('load', toggleBounce);
+
+  function toggleBounce() {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 }
