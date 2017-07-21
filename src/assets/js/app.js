@@ -22,7 +22,10 @@ const render = (root)=>{
      render(root);}));
 
    } else if(state.page == 3){
-     section.append(FittingRoom());
+     section.append(FittingRoom(_ => {
+     render(root);}));
+   } else if(state.page == 4){
+     section.append(Seeyou());
    }
 
    root.append(section);
