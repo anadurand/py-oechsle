@@ -1,22 +1,24 @@
 "use strict";
 const render = (root)=>{
-  root.empty();
-  const section = $('<section class="components"></section>');
+    root.empty();
+    const section = $('<section class="components"></section>');
 
-  if (state.page == 0){
-    section.append(Header());
-    section.append(welcome());
-  }else if(state.page == 1) {
-    section.append(Header());
-    section.append(Outfit());
-  }
-  root.append(section);
+    // if (state.page == 0){
+    //   section.append(Header());
+    //   section.append(welcome());
+    // }else if(state.page == 1) {
+    //   section.append(Header());
+    //   section.append(Outfit());
+    //
+    // }else if(state.page == 2){
+    // }
+    section.append(localsSearch());
+    root.append(section);
 };
 const state = {
-  page: 0,
-  cloth: null,
-  clothSelected : null,
-  locals:null
+    page: 0,
+    cloth: null,
+    clothSelected : null
 };
 
 $( _ => {
@@ -38,9 +40,9 @@ $( _ => {
     state.cloth = snap.val();
     state.locals = snap.val().locals;
     console.log(state.locals);
+    const root = $('#root');
+    render(root);
   });
-  const root = $('#root');
-  render(root);
   $('.owl-carousel').owlCarousel({
     loop:true,
     margin:10,
