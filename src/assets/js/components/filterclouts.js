@@ -5,7 +5,6 @@ const filterBycloths= (ropa,query ) => {
     return (index.Type == query);
   });
   return select;
-  console.log(select);
 };
 
 const filtradosBycolors =(colors ,values) =>{

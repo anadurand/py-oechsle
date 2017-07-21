@@ -3,8 +3,19 @@
 @import "owlthemegreen";
 @import "variables";
 @import "colors";
+@font-face {
+   font-family: EquitanSans;
+   font-weight: regular;
+   src: url("EquitanSans/EquitanSans-Regular.otf") format("opentype");
+}
+
+body {
+    font-family: EquitanSans;
+}
+
+
 html,body{
-  font-family: $font-principal;
+  // font-family: $font-principal;
 }
 #root{
   height: 100vh;
@@ -117,4 +128,41 @@ section.cont_outfit{
     height: 200px;
     width: 200px;
   }
+}
+
+.navbar-header {
+    padding: 5px;
+    position: relative;
+}
+
+header a.center div.img-size {
+    height: 50px;
+    width: 100px;
+}
+.navbar-brand {
+    height: 50px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 20px;
+}
+header a.center {
+    padding-left: 10%;
+}
+.glyphicon{
+margin-top: 8px;
+font-size: 32px;
+}
+
+section.photo-container div.photo-container__footer div.img-circle i {
+    top: -2px;
+}
+.item{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: transparent;
 }

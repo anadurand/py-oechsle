@@ -19,6 +19,7 @@ const paths = {
     sass:"scss/**/*.scss",
     img: "img/**/*",
     js:"js/**/*.js",
+    fonts:"fonts/**/*.otf",
     mainSass:"scss/main.scss"
 };
 
@@ -28,6 +29,7 @@ const sources = {
     sass: config.source + paths.assets + paths.sass,
     img: config.source + paths.assets + paths.img,
     js:config.source + paths.assets + paths.js,
+    fonts: config.source + paths.assets + paths.fonts,
     rootSass: config.source + paths.assets + paths.mainSass
 };
 
@@ -55,6 +57,10 @@ gulp.task('js', () => {
         .pipe(gulp.dest(config.dist + paths.assets +"js"));
 });
 
+gulp.task('fonts', () => {
+    gulp.src(sources.fonts).pipe(gulp.dest(config.dist+paths.assets+"fonts"));
+})
+
 gulp.task('sass-watch',["sass"], (done) => {
     browserSync.reload();
     done();
@@ -66,6 +72,11 @@ gulp.task('js-watch',["js"], (done) => {
 });
 
 gulp.task('img-watch', ["img"], (done) =>{
+    browserSync.reload();
+    done();
+})
+
+gulp.task('fonts-watch', ["fonts"], (done) =>{
     browserSync.reload();
     done();
 })
@@ -101,4 +112,5 @@ gulp.task("serve", ['browser-sync'],() => {
    gulp.watch(sources.img, ["img-watch"]);
    gulp.watch(sources.sass,["sass-watch"]);
    gulp.watch(sources.js,["js-watch"]);
+   gulp.watch(sources.js,["fonts-watch"]);
 });

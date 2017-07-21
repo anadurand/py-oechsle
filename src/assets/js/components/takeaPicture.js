@@ -1,0 +1,4 @@
+const TakePicture = ()=>{
+  Header();
+  
+}

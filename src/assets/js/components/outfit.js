@@ -1,4 +1,5 @@
 const Outfit = (update) => {
+
   const contOutfit = $('<section class="cont_outfit"></section>');
   const controw    =$('<div class="row"></div>');
   const divSelect  = $('<div id="img_fixed" class="col-xs-8 col-xs-offset-2"></div>');
@@ -14,6 +15,7 @@ const Outfit = (update) => {
   let col_shoes = [] ;
 
   if (state.clothSelected.Type == "blouse"){
+
       var palabras = state.clothSelected.combinations.split(", ");
           filtrados = filterBycloths(state.cloth.clothes ,"pants");
           filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
@@ -33,7 +35,6 @@ const Outfit = (update) => {
       colores.forEach( function( index) {
         secCarousel_1.append(slider1(index, update));
       });
-
       col_shoes.forEach( function( index) {
         secCarousel_2.append(slider2(index, update));
       });
@@ -47,31 +48,41 @@ const Outfit = (update) => {
 
   } else if (state.clothSelected.Type == "pants"){
     var palabras = state.clothSelected.combinations.split(", ");
-    console.log(palabras);
 
-    $.each(state.cloth.clothes , function(i,value){
-       filtrados = filterBycloths(state.cloth.clothes ,"blouse");
-      $.each(palabras ,function(i,value){
-        colores = filtradosBycolors(filtrados ,value);
-      })
-    });
+        filtrados = filterBycloths(state.cloth.clothes ,"blouse");
+        filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
 
-    colores.forEach( function( index) {
-      secCarousel_1.append(slider1(index, update));
-    });
+        $.each(filtrados, function(e,item){
+           var filtra=  palabras.indexOf(item.color);
+           if(filtra!=-1){
+            colores.push(item);
+           }
+        });
+        $.each(filt_shoes, function(e,item){
+           var filtra_shoe=  palabras.indexOf(item.color);
+           if(filtra_shoe!=-1){
+            col_shoes.push(item);
+           }
+        });
 
-    divOptions_1.append(secCarousel_1);
-    controw.append(divOptions_1)
-    divSelect.append(imgSelect) ;
-    controw.append(divSelect);
+        colores.forEach( function( index) {
+          secCarousel_1.append(slider1(index, update));
+        });
+
+        col_shoes.forEach( function( index) {
+          secCarousel_2.append(slider2(index, update));
+        });
+
+        divOptions_1.append(secCarousel_1);
+        controw.append(divOptions_1)
+        divSelect.append(imgSelect) ;
+        controw.append(divSelect);
+        divOptions_2.append(secCarousel_2);
+        controw.append(divOptions_2);
   }
 
-  const footerOutfit =$('<div class="outfit-container__footer">'+
-                          '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
-                        '</div>');
-
   contOutfit.append(controw); //Secundario
-  contOutfit.append(footerOutfit);
+
   $( _ => {
     $('.owl-carousel').owlCarousel({
         loop:true,

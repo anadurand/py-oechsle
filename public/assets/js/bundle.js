@@ -3,24 +3,32 @@ var render = function (root) {
   root.empty();
   var section = $("<section class=\"components\"></section>");
   if (state.page == 0) {
-    section.append(Header());
+    section.append(Header(function (_) {
+      render(root);
+    }));
     section.append(welcome(function (_) {
       render(root);
     }));
   } else if (state.page == 1) {
-    section.append(Header());
-    section.append(Outfit());
-  } else if (state.page == 2) {}
+    section.append(Header(function (_) {
+      render(root);
+    }));
+    section.append(Outfit(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 2) {
+    section.append(Yourbasket());
+  }
   root.append(section);
-  init(); //inicializa camara
+  init();
 };
 
 var state = {
   page: 0,
   cloth: null,
+  buy: null,
   clothSelected: null,
-  prendaRandon: null
-};
+  prendaRandon: null };
 
 var update = function () {
   render(root);
@@ -3275,16 +3283,10 @@ $(function (_) {
 })(window.Zepto || window.jQuery, window, document);
 "use strict";
 
-var Mixed = function () {
-	var clothContainer = $("<section class='cloth-container'></section>");
+var Carousel = function () {
+  var secCarousel = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/jean-1.jpg'></div>" + "<div class='item'><img src='assets/img/jean-2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-b1.jpg'></div>" + "<div class='tem'><img src='assets/img/pants-b2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n2.jpg'></div>" + "</div>");
 
-	var principalCloth = $("<div class='cloth-container__princNews'>Aquí va la ropa</div>");
-
-
-	clothContainer.append(principalCloth);
-
-
-	return clothContainer;
+  return secCarousel;
 };
 "use strict";
 
@@ -3293,7 +3295,6 @@ var filterBycloths = function (ropa, query) {
     return index.Type == query;
   });
   return select;
-  console.log(select);
 };
 
 var filtradosBycolors = function (colors, values) {
@@ -3301,6 +3302,34 @@ var filtradosBycolors = function (colors, values) {
     return index.color == values;
   });
   return colorselec;
+};
+"use strict";
+
+var FittingRoom = function () {
+  var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
+  var row = $("<div class='row'>" + "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>" + "</div>");
+  var conta = $("<div class='container'></div>");
+  var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  var div = $("<div></div>");
+  var p = $("<p>select a location</p>");
+  var inputFilter = $("<input type='text' class='fitRoom--input-class'>");
+  var mapa = $("<div id='mapa'></div>");
+  var div2 = $("<div><p>select a date and time</p>" + "<input type='text' class='fitRoom--input-class'></div>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
+
+  secFRoom.append(row);
+  secFRoom.append(conta);
+  conta.append(rowc);
+  rowc.append(div);
+  div.append(p);
+  div.append(inputFilter);
+  div.append(mapa);
+  rowc.append(div2);
+  conta.append(rows);
+
+
+
+  return secFRoom;
 };
 "use strict";
 
@@ -3318,16 +3347,43 @@ var Footer = function () {
 };
 "use strict";
 
-var Header = function () {
+var Header = function (update) {
 	var headerContainer = $("<header class='header-container'></header>");
 	var divnavbar = $("<nav class=\"navbar navbar-default\"><div class=\"container-fluid\"></div></nav>");
-	var div_header = $("<div class=\"navbar-header\">" + "<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">" + "<span class=\"sr-only\">Toggle navigation</span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "</button>" + "<a class=\"navbar-brand center\" href=\"#\"><div class=\"img-size\"><img src=\"assets/img/logo.png\" class=\"img-responsive\" alt=\"logo\"></div></a>" + "<a class=\"navbar-brand right\" href=\"#\"><i class=\"glyphicon glyphicon-shopping-cart\"></i></a>" + "</div>");
-	var div_collapse = $("<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">" + "<ul class=\"nav navbar-nav\">" + "<li class=\"active\"><a href=\"#\">Inicio <span class=\"sr-only\">(current)</span></a></li>" + "<li><a href=\"#\">Mis compras </a></li>" + "<li><a href=\"#\">Mis citas </a></li>" + "</ul>" + "</div>");
+	var div_header = $("<div class=\"navbar-header\">" + "<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">" + "<span class=\"sr-only\">Toggle navigation</span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "</button></div>");
+	var logo = $("<a class=\"navbar-brand center\" href=\"#\"><div class=\"img-size\"><img src=\"assets/img/logo.png\" class=\"img-responsive\" alt=\"logo\"></div></a>");
+	var btn_buy = $("<a class=\"navbar-brand right\" href=\"#compras\"><i class=\"glyphicon glyphicon-shopping-cart\"></i></a>");
 
-	headerContainer.append(divnavbar);
+	var div_collapse = $("<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">" + "<ul class=\"nav navbar-nav\">" + "<li class=\"active\"><a href=\"#\">Inicio <span class=\"sr-only\">(current)</span></a></li>" + "<li><a href=\"#\">Mis compras </a></li>" + "<li><a href=\"#\">Mis citas </a></li>" + "</ul>" + "</div>");
+	div_header.append(logo);
+	div_header.append(btn_buy);
+	headerContainer.append(divnavbar);;
 	divnavbar.append(div_header);
 	divnavbar.append(div_collapse);
+
+	btn_buy.on("click", function () {
+		console.log("compra de articulos");
+		state.page = 2;
+		update();
+	});
 	return headerContainer;
+};
+"use strict";
+var imgBuy = function (detail, update) {
+    var cont_Img = $("<div class='item'></div>");
+    var divImg = $("<div class=\"cont_img\"></div>");
+    var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+    var divText = $("<div class=\"cont_text\"></div>");
+    var name = $("<h6>" + detail.name + "</h6>");
+    var price = $("<p>Precio : " + detail.price + "</p>");
+
+    cont_Img.append(divImg);
+    cont_Img.append(divText);
+    divImg.append(img);
+    divText.append(name);
+    divText.append(price);
+
+    return cont_Img;
 };
 "use strict";
 
@@ -3366,7 +3422,6 @@ var Outfit = function (update) {
     colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
-
     col_shoes.forEach(function (index) {
       secCarousel_2.append(slider2(index, update));
     });
@@ -3379,29 +3434,41 @@ var Outfit = function (update) {
     controw.append(divOptions_2);
   } else if (state.clothSelected.Type == "pants") {
     var palabras = state.clothSelected.combinations.split(", ");
-    console.log(palabras);
 
-    $.each(state.cloth.clothes, function (i, value) {
-      filtrados = filterBycloths(state.cloth.clothes, "blouse");
-      $.each(palabras, function (i, value) {
-        colores = filtradosBycolors(filtrados, value);
-      });
+    filtrados = filterBycloths(state.cloth.clothes, "blouse");
+    filt_shoes = filterBycloths(state.cloth.clothes, "shoe");
+
+    $.each(filtrados, function (e, item) {
+      var filtra = palabras.indexOf(item.color);
+      if (filtra != -1) {
+        colores.push(item);
+      }
+    });
+    $.each(filt_shoes, function (e, item) {
+      var filtra_shoe = palabras.indexOf(item.color);
+      if (filtra_shoe != -1) {
+        col_shoes.push(item);
+      }
     });
 
     colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
 
+    col_shoes.forEach(function (index) {
+      secCarousel_2.append(slider2(index, update));
+    });
+
     divOptions_1.append(secCarousel_1);
     controw.append(divOptions_1);
     divSelect.append(imgSelect);
     controw.append(divSelect);
+    divOptions_2.append(secCarousel_2);
+    controw.append(divOptions_2);
   }
 
-  var footerOutfit = $("<div class=\"outfit-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
-
   contOutfit.append(controw); //Secundario
-  contOutfit.append(footerOutfit);
+
   $(function (_) {
     $(".owl-carousel").owlCarousel({
       loop: true,
@@ -3423,124 +3490,159 @@ var Outfit = function (update) {
   return contOutfit;
 };
 "use strict";
-
+var buyselect1 = [];
 var slider1 = function (detail, update) {
-  console.log(detail);
+  var enlace1 = $("<a></a>");
   var cont_Img = $("<div class='item'></div>");
   var divImg = $("<div class=\"cont_img\"></div>");
   var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
   var divText = $("<div class=\"cont_text\"></div>");
   var name = $("<h6>" + detail.name + "</h6>");
   var price = $("<p>Precio : " + detail.price + "</p>");
-
   cont_Img.append(divImg);
   cont_Img.append(divText);
   divImg.append(img);
   divText.append(name);
   divText.append(price);
+  enlace1.append(cont_Img);
 
-  return cont_Img;
+  enlace1.on("click", function () {
+    buyselect1.push(detail);
+    console.log(detail);
+    console.log(buyselect1);
+  });
+  return enlace1;
+};
+"use strict";
+var buyselect2 = [];
+var slider2 = function (detail, update) {
+    var enlace2 = $("<a></a>");
+    var cont_Img = $("<div class='item'></div>");
+    var divImg = $("<div class=\"cont_img\"></div>");
+    var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+    var divText = $("<div class=\"cont_text\"></div>");
+    var name = $("<h6>" + detail.name + "</h6>");
+    var price = $("<p>Precio : " + detail.price + "</p>");
+
+    cont_Img.append(divImg);
+    cont_Img.append(divText);
+    divImg.append(img);
+    divText.append(name);
+    divText.append(price);
+    enlace2.append(cont_Img);
+
+    enlace2.on("click", function () {
+        buyselect2.push(detail);
+        console.log(buyselect2);
+    });
+    return enlace2;
 };
 "use strict";
 
-var slider2 = function (detail, update) {
-  console.log(detail);
-  var cont_Img = $("<div class='item'></div>");
-  var divImg = $("<div class=\"cont_img\"></div>");
-  var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
-  var divText = $("<div class=\"cont_text\"></div>");
-  var name = $("<h6>" + detail.name + "</h6>");
-  var price = $("<p>Precio : " + detail.price + "</p>");
-
-  cont_Img.append(divImg);
-  cont_Img.append(divText);
-  divImg.append(img);
-  divText.append(name);
-  divText.append(price);
-
-  return cont_Img;
+var TakePicture = function () {
+  Header();
 };
 "use strict";
 
 var welcome = function (update) {
-	var photoContainer = $("<section class=\"photo-container\"></section>");
+    var photoContainer = $("<section class=\"photo-container\"></section>");
 
-	var photoCont = $("<div class=\"photo-container__cont\"></div>");
-	var divMsj = $("<div class=\"cont_text\"><h4>Tómale una foto a la prenda que quieras combinar y nosotros te armamos el outfit!</h4></div>");
+    var photoCont = $("<div class=\"photo-container__cont\"></div>");
+    var divMsj = $("<div class=\"cont_text\"><h4>Tómale una foto a la prenda que quieras combinar y nosotros te armamos el outfit!</h4></div>");
 
-	var videoHtml = $("<video id='video' width='100%'></video>");
-	var imgHtml = $("<img id='img' src=''>");
-	var canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
-	var buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
+    var videoHtml = $("<video id='video' width='100%'></video>");
+    var imgHtml = $("<img id='img' src=''>");
+    var canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
+    var buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
 
-	var imgPhoto = $("<img src=\"http://cdn.modalia.es/images/stories/2015/febrero/hm-chaquetas-ss15/hm-chaquetas-ss15_6.jpg\" class=\"img-responsive\" alt=\"chaqueta\">");
-	var photoFooter = $("<div class=\"photo-container__footer\"></div>");
-	var ok = $("<div id=\"seleccionar\"  class=\"img-circle\"><i  class=\"glyphicon glyphicon-ok\"></i></div>");
+    var imgPhoto = $("<img src=\"http://cdn.modalia.es/images/stories/2015/febrero/hm-chaquetas-ss15/hm-chaquetas-ss15_6.jpg\" class=\"img-responsive\" alt=\"chaqueta\">");
+    var photoFooter = $("<div class=\"photo-container__footer\"></div>");
+    var ok = $("<div id=\"seleccionar\"  class=\"img-circle\"><i  class=\"glyphicon glyphicon-ok\"></i></div>");
 
-	photoCont.append(divMsj);
-	photoContainer.append(photoCont);
-	photoContainer.append(videoHtml);
-	photoCont.append(divMsj);
-	$(".close").on("click", function () {
-		$(".close").addClass("close");
-	});
+    photoCont.append(divMsj);
+    photoContainer.append(photoCont);
 
-	photoContainer.append(imgHtml);
-	photoContainer.append(canvasHtml);
-	photoContainer.append(videoHtml);
 
-	photoFooter.append(ok);
-	photoFooter.append(buttonHtml);
-	photoContainer.append(photoFooter);
+    photoContainer.append(videoHtml);
+    photoContainer.append(imgHtml);
+    photoContainer.append(canvasHtml);
+    photoContainer.append(videoHtml);
+    photoFooter.append(ok);
+    photoFooter.append(buttonHtml);
+    photoContainer.append(photoFooter);
 
-	ok.on("click", function () {
-		var prenda = state.prendaRandon;
-
-		$.each(state.cloth.clothes, function (i, value) {
-			if (value.image == prenda) {
-				state.page = 1;
-				state.clothSelected = value;
-			}
-		});
-		update();
-	});
-	return photoContainer;
+    ok.on("click", function () {
+        var prenda = state.prendaRandon;
+        $.each(state.cloth.clothes, function (i, value) {
+            if (value.image == prenda) {
+                state.page = 1;
+                state.clothSelected = value;
+            }
+        });
+        update();
+    });
+    return photoContainer;
 };
 
 function init() {
-	var video = document.querySelector("#video");
-	var canvas = document.querySelector("#canva");
-	var button = document.querySelector("#button");
-	var img = document.querySelector("#img");
-	canvas.style.display = "none";
-	img.style.display = "none";
-	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-	if (navigator.getUserMedia) {
-		navigator.getUserMedia({ video: true }, function (stream) {
-			video.src = window.URL.createObjectURL(stream);
-			video.play();
-		}, function (error) {
-			console.log(error);
-		});
-	} else alert("Tienes un navegador obsoleto");
-	video.addEventListener("loadedmetadata", function () {
-		canvas.width = video.videoWidth;
-		canvas.height = video.videoHeight;
-	}, false);
-	button.addEventListener("click", function () {
-		canvas.getContext("2d").drawImage(video, 0, 0);
-		var imgData = canvas.toDataURL("image/png");
-		img.setAttribute("src", imgData);
-		state.photoTaken = imgData;
-		console.log(state.photoTaken);
+    var video = document.querySelector("#video");
+    var canvas = document.querySelector("#canva");
+    var button = document.querySelector("#button");
+    var img = document.querySelector("#img");
+    canvas.style.display = "none";
+    img.style.display = "none";
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({ video: true }, function (stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        }, function (error) {
+            console.log(error);
+        });
+    } else alert("Tienes un navegador obsoleto");
+    video.addEventListener("loadedmetadata", function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    }, false);
+    button.addEventListener("click", function () {
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        var imgData = canvas.toDataURL("image/png");
+        img.setAttribute("src", imgData);
+        state.photoTaken = imgData;
 
-		img.style.display = "block";
-		video.style.display = "none";
-	});
-	// var btn = document.getElementById('btn-download');
-	// btn.addEventListener('click', function (e) {
-	// var dataURL = canvas.toDataURL('image/png');
-	// btn.href = dataURL;
-
-	// });
+        img.style.display = "block";
+        video.style.display = "none";
+    });
 }
+"use strict";
+
+var Yourbasket = function () {
+  var secYourBasket = $("<section id='yourBasket' class='container-fluid'></section>");
+  var row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Your Basket (<span id='nItems'></span> items)</p></div></div>");
+  var conta = $("<div class='container'></div>");
+  var rowc = $("<div class='row'></div>");
+  var imgSelected = $("<div id='imgSelected'></div>");
+
+  var total = 0;
+
+  buyselect1.forEach(function (index) {
+    imgSelected.append(imgBuy(index, update));
+    total += index.price;
+  });
+
+  console.log(total);
+  var rowc2 = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'></div></div>");
+  var btnbuy = $("button type='button' name='button'>Buy<span class='precio'></span></button>");
+  var btnfttr = $("<button type='button' name='button'>Send to fitting room</button>");
+
+  secYourBasket.append(row1);
+  secYourBasket.append(conta);
+  conta.append(rowc);
+  rowc.append(imgSelected);
+  conta.append(rowc2);
+  rowc2.append(btnbuy);
+  rowc2.append(btnfttr);
+
+
+  return secYourBasket;
+};
