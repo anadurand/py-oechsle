@@ -5,7 +5,8 @@ const render = (root)=>{
    const section = $('<section class="components"></section>');
 
    if (state.page == 0){
-     section.append(Header( _ => {
+    //  section.append(Header (
+     section.append(Header(_ => {
      render(root);}));
      section.append(welcome( _ => {
      render(root);}));
@@ -21,8 +22,7 @@ const render = (root)=>{
      render(root);}));
 
    } else if(state.page == 3){
-     section.append(FittingRoom( _ => {
-     render(root);}));
+     section.append(FittingRoom());
    }
 
    root.append(section);
@@ -35,6 +35,8 @@ const state = {
    buy:null,
    clothSelected : null,
    prendaRandon:null,
+   locals: null,
+   localSelected: null
 };
 
 const update = function (){
@@ -55,7 +57,7 @@ $( _ => {
   database.ref().on("value", function(snap){
 
   state.cloth = snap.val();
-
+  state.locals = snap.val().locals;
   var array = [];
 for (var i = 0; i < state.cloth.clothes.length; i++) {
  if(state.cloth.clothes[i].Type=="pants" || state.cloth.clothes[i].Type=="blouse"){

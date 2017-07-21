@@ -1,5 +1,5 @@
 "use strict";
-const  Yourbasket = () => {
+const  Yourbasket = (update) => {
  const secYourBasket = $("<section class='container-fluid'></section>");
  const row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>"+
  "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Your Basket (<span id='nItems'></span> items)</p></div></div>");

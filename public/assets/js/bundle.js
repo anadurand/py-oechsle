@@ -5,6 +5,7 @@ var render = function (root) {
   var section = $("<section class=\"components\"></section>");
 
   if (state.page == 0) {
+    //  section.append(Header (
     section.append(Header(function (_) {
       render(root);
     }));
@@ -23,9 +24,7 @@ var render = function (root) {
       render(root);
     }));
   } else if (state.page == 3) {
-    section.append(FittingRoom(function (_) {
-      render(root);
-    }));
+    section.append(FittingRoom());
   }
 
   root.append(section);
@@ -37,7 +36,10 @@ var state = {
   cloth: null,
   buy: null,
   clothSelected: null,
-  prendaRandon: null };
+  prendaRandon: null,
+  locals: null,
+  localSelected: null
+};
 
 var update = function () {
   render(root);
@@ -56,7 +58,7 @@ $(function (_) {
   var database = firebase.database();
   database.ref().on("value", function (snap) {
     state.cloth = snap.val();
-
+    state.locals = snap.val().locals;
     var array = [];
     for (var i = 0; i < state.cloth.clothes.length; i++) {
       if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
@@ -3311,7 +3313,6 @@ var FittingRoom = function (update) {
   var mapa = $("<div id='mapa'></div>");
   var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
   var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
-
   secFRoom.append(row);
   secFRoom.append(conta);
   conta.append(rowc);
@@ -3745,7 +3746,7 @@ function init() {
     });
 }
 "use strict";
-var Yourbasket = function () {
+var Yourbasket = function (update) {
   var secYourBasket = $("<section class='container-fluid'></section>");
   var row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Your Basket (<span id='nItems'></span> items)</p></div></div>");
   var conta = $("<div class='container'></div>");
