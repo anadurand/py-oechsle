@@ -5,8 +5,8 @@ const imgBuy = ( detail, update) => {
     const divImg   = $('<div class="cont_img"></div>');
     const img      = $('<img src="assets/img/'+ detail.image +'" class="img-responsive">');
     const divText  = $('<div class="cont_text"></div>');
-    const name     = $('<h6>'+ detail.name +'</h6>');
-    const price    = $('<p>Precio : '+ detail.price + '</p>');
+    const name     = $('<h4>'+ detail.name +'</h4>');
+    const price    = $('<h4>Precio : S/.'+ detail.price + '</h4>');
 
     cont_Img.append(divImg);
     cont_Img.append(divText);

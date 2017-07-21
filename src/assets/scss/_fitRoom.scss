@@ -14,13 +14,18 @@
 }
 .fitRoom--input-class , .fitRoom--input-class:focus{
   border-style: none none solid none;
+  width: 100%;
   outline: 0;
+}
+#fittingRoom{
+  height: 100vh;
+
 }
 .fitRoom--span-class {
   border-style: solid;
 }
 .fitRoom--span-pd{
-  padding: 3rem;
+  padding: 1rem;
 }
 .fitRoom--button-class{
   background-color: rgb(83, 67, 194);

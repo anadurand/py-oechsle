@@ -3,16 +3,29 @@
 @import "owlthemegreen";
 @import "variables";
 @import "colors";
+@import "fitRoom";
 @font-face {
    font-family: EquitanSans;
    font-weight: regular;
    src: url("EquitanSans/EquitanSans-Regular.otf") format("opentype");
 }
+*{
+  font-size: 1.3rem;
+  color: black;
+  // text-transform: capitalize;
+}
+.margin1{
+  margin-top: 15px;
+}
 
 body {
     font-family: EquitanSans;
 }
-
+.boton{
+  font-size: 20px;
+  margin: 10px;
+  padding: 5px 24px;
+}
 
 html,body{
   // font-family: $font-principal;
@@ -165,4 +178,8 @@ section.photo-container div.photo-container__footer div.img-circle i {
 .navbar-default {
     background-color: #f8f8f8;
     border-color: transparent;
+}
+.marginTop{
+  padding-left: 45px;
+  margin-top: 23px;
 }

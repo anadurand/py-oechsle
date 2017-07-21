@@ -1,67 +1,78 @@
 "use strict";
 var render = function (root) {
-  root.empty();
-  var section = $("<section class=\"components\"></section>");
-  if (state.page == 0) {
-    section.append(Header(function (_) {
-      render(root);
-    }));
-    section.append(welcome(function (_) {
-      render(root);
-    }));
-  } else if (state.page == 1) {
-    section.append(Header(function (_) {
-      render(root);
-    }));
-    section.append(Outfit(function (_) {
-      render(root);
-    }));
-  } else if (state.page == 2) {
-    section.append(Yourbasket());
-  }
-  root.append(section);
-  init();
+   root.empty();
+
+   var section = $("<section class=\"components\"></section>");
+
+   if (state.page == 0) {
+      //  section.append(Header (
+      section.append(Header(function (_) {
+         render(root);
+      }));
+      section.append(welcome(function (_) {
+         render(root);
+      }));
+   } else if (state.page == 1) {
+      section.append(Header(function (_) {
+         render(root);
+      }));
+      section.append(Outfit(function (_) {
+         render(root);
+      }));
+   } else if (state.page == 2) {
+      section.append(Yourbasket(function (_) {
+         render(root);
+      }));
+   } else if (state.page == 3) {
+      section.append(FittingRoom());
+   }
+
+   root.append(section);
+   init();
 };
 
 var state = {
-  page: 0,
-  cloth: null,
-  buy: null,
-  clothSelected: null,
-  prendaRandon: null };
+   page: 0,
+   cloth: null,
+   buy: null,
+   clothSelected: null,
+   prendaRandon: null,
+   locals: null,
+   localSelected: null
+};
 
 var update = function () {
-  render(root);
+   render(root);
 };
 
 $(function (_) {
-  var config = {
-    apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
-    authDomain: "base-7937c.firebaseapp.com",
-    databaseURL: "https://base-7937c.firebaseio.com",
-    projectId: "base-7937c",
-    storageBucket: "",
-    messagingSenderId: "305091668120"
-  };
-  firebase.initializeApp(config);
-  var database = firebase.database();
-  database.ref().on("value", function (snap) {
-    state.cloth = snap.val();
+   var config = {
+      apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
+      authDomain: "base-7937c.firebaseapp.com",
+      databaseURL: "https://base-7937c.firebaseio.com",
+      projectId: "base-7937c",
+      storageBucket: "",
+      messagingSenderId: "305091668120"
+   };
+   firebase.initializeApp(config);
+   var database = firebase.database();
+   database.ref().on("value", function (snap) {
+      state.cloth = snap.val();
+      state.locals = snap.val().locals;
+      var array = [];
+      for (var i = 0; i < state.cloth.clothes.length; i++) {
+         if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
+            array.push(state.cloth.clothes[i].image);
+         }
+      };
+      var randno = array[Math.floor(Math.random() * array.length)];
+      // $('.archivoNombre').text( randno );
+      state.prendaRandon = randno;
+      console.log(randno);
 
-    var array = [];
-    for (var i = 0; i < state.cloth.clothes.length; i++) {
-      if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
-        array.push(state.cloth.clothes[i].image);
-      }
-    };
-    var randno = array[Math.floor(Math.random() * array.length)];
-    // $('.archivoNombre').text( randno );
-    state.prendaRandon = randno;
-    console.log(randno);
-
-    var root = $("#root");
-    render(root);
-  });
+      var root = $("#root");
+      render(root);
+   });
 });
 "use strict";
 
@@ -3290,6 +3301,118 @@ var Carousel = function () {
 };
 "use strict";
 
+var FittingRoom = function (update) {
+  var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
+  var row = $("<div class='row'>" + "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>" + "</div>");
+  var conta = $("<div class='container'></div>");
+  var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  var div = $("<div></div>");
+  var p = $("<p>select a location</p>");
+  // const iconSearch = $('<span  class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>');
+  var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
+  var mapa = $("<div id='mapa'></div>");
+  var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
+  secFRoom.append(row);
+  secFRoom.append(conta);
+  conta.append(rowc);
+  rowc.append(div);
+  div.append(p);
+  // div.append(iconSearch)
+  div.append(inputFilter);
+  div.append(mapa);
+  rowc.append(div2);
+  conta.append(rows);
+  inputFilter.on("keyup", function (e) {
+    var find = filterByLocal(state.locals, inputFilter.val());
+
+    reRender(mapa, find, update);
+  });
+  var reRender = function (mapa, find, update) {
+    mapa.empty();
+    find.forEach(function (local) {
+      mapa.append(localItem(local, update, function (_) {
+        reRender(mapa, find);
+      }));
+    });
+  };
+  var localItem = function (local, update, reRender) {
+    var contLocal = $("<div class=\"col-xs-12\"></div>");
+    var contName = $("<div class=\"col-xs-9\"></div>");
+    var name = $("<span>" + local["data-store"] + "</span>");
+    var contLink = $("<div class=\"col-xs-3\"></div>");
+    var mapIcon = $("<i class=\"glyphicon glyphicon-map-marker\"></i>");
+    var contAddres = $("<div class=\"col-xs-12\"></div>");
+    var address = $("<p>" + local.address + "<br>" + "-" + local["data-province"] + "</p>");
+
+    contName.append(name);
+    contLink.append(mapIcon);
+    contAddres.append(address);
+
+    contLocal.append(contName);
+    contLocal.append(contLink);
+    contLocal.append(contAddres);
+
+    mapIcon.on("click", function (e) {
+      e.preventDefault();
+      state.localSelected = local;
+      $("#mapa").empty();
+
+      initMap(local);
+    });
+
+    return contLocal;
+  };
+
+  function initMap(local) {
+    console.log(local);
+
+    var map = new google.maps.Map(document.getElementById("mapa"), {
+      center: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) },
+      zoom: 17
+    });
+
+    var marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: { lat: parseFloat(local.lat), lng: parseFloat(local.lng) }
+    });
+    marker.addListener("load", toggleBounce);
+
+    function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+  }
+
+
+  var unSelect = function (e) {
+    e.style.opacity = "1";
+    ac = false;
+  };
+  var Select = function (e) {
+    console.log("select" + e);
+    ac = true;
+    e.style.opacity = "0.5";
+  };
+  var ac = false;
+  $(".fitRoom--span-class").click(function (e) {
+    if (!ac) {
+      Select(e.target);
+    } else {
+      unSelect(e.target);
+    }
+    console.log(e.target);
+  });
+
+  return secFRoom;
+};
+"use strict";
+
 var filterBycloths = function (ropa, query) {
   var select = ropa.filter(function (index) {
     return index.Type == query;
@@ -3305,17 +3428,25 @@ var filtradosBycolors = function (colors, values) {
 };
 "use strict";
 
+var filterByLocal = function (locals, query) {
+  var location = locals.filter(function (local) {
+    return local["data-store"].toLowerCase().indexOf(query.toLowerCase()) != -1;
+  });
+  return location;
+};
+"use strict";
+
 var FittingRoom = function () {
   var secFRoom = $("<section id='fittingRoom' class='container-fluid'></section>");
-  var row = $("<div class='row'>" + "<div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Fitting Room</p></div>" + "</div>");
+  var row = $("<div class='row margin1'>" + "<div class='margin1 col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='margin1 col-xs-10 col-sm-10 container-flex-row'><h3>Reserva una cita</h3></div>" + "</div>");
   var conta = $("<div class='container'></div>");
-  var rowc = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
+  var rowc = $("<div class='row margin1'><div class='col-xs-12 col-sm-12 container-flex-colum-flxStart'></div></div>");
   var div = $("<div></div>");
-  var p = $("<p>select a location</p>");
-  var inputFilter = $("<input type='text' class='fitRoom--input-class'>");
+  var p = $("<p>Selecciona locación</p>");
+  var inputFilter = $("<input type='text' class='margin1 fitRoom--input-class'>");
   var mapa = $("<div id='mapa'></div>");
-  var div2 = $("<div><p>select a date and time</p>" + "<input type='text' class='fitRoom--input-class'></div>");
-  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
+  var div2 = $("<div><p>Selecciona día y hora</p></div>" + "<input type='text' class='fitRoom--input-class'></div>");
+  var rows = $("<div class='margin1 row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='margin1 row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='margin1 row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='btn btn-danger boton'>Confirmar</button>" + "</div></div>");
 
   secFRoom.append(row);
   secFRoom.append(conta);
@@ -3374,8 +3505,8 @@ var imgBuy = function (detail, update) {
     var divImg = $("<div class=\"cont_img\"></div>");
     var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
     var divText = $("<div class=\"cont_text\"></div>");
-    var name = $("<h6>" + detail.name + "</h6>");
-    var price = $("<p>Precio : " + detail.price + "</p>");
+    var name = $("<h4>" + detail.name + "</h4>");
+    var price = $("<h4>Precio : S/." + detail.price + "</h4>");
 
     cont_Img.append(divImg);
     cont_Img.append(divText);
@@ -3497,8 +3628,8 @@ var slider1 = function (detail, update) {
   var divImg = $("<div class=\"cont_img\"></div>");
   var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
   var divText = $("<div class=\"cont_text\"></div>");
-  var name = $("<h6>" + detail.name + "</h6>");
-  var price = $("<p>Precio : " + detail.price + "</p>");
+  var name = $("<h4>" + detail.name + "</h4>");
+  var price = $("<h4>Precio : S/." + detail.price + "</h4>");
   cont_Img.append(divImg);
   cont_Img.append(divText);
   divImg.append(img);
@@ -3508,8 +3639,6 @@ var slider1 = function (detail, update) {
 
   enlace1.on("click", function () {
     buyselect1.push(detail);
-    console.log(detail);
-    console.log(buyselect1);
   });
   return enlace1;
 };
@@ -3521,8 +3650,8 @@ var slider2 = function (detail, update) {
     var divImg = $("<div class=\"cont_img\"></div>");
     var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
     var divText = $("<div class=\"cont_text\"></div>");
-    var name = $("<h6>" + detail.name + "</h6>");
-    var price = $("<p>Precio : " + detail.price + "</p>");
+    var name = $("<h4>" + detail.name + "</h4>");
+    var price = $("<h4>Precio : S/." + detail.price + "</h4>");
 
     cont_Img.append(divImg);
     cont_Img.append(divText);
@@ -3615,13 +3744,12 @@ function init() {
     });
 }
 "use strict";
-
-var Yourbasket = function () {
-  var secYourBasket = $("<section id='yourBasket' class='container-fluid'></section>");
-  var row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Your Basket (<span id='nItems'></span> items)</p></div></div>");
+var Yourbasket = function (update) {
+  var secYourBasket = $("<section class='container-fluid'></section>");
+  var row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><h3 class='marginTop'>Tu bolsa de compras (<span id='nItems'></span>)</h3></div></div>");
   var conta = $("<div class='container'></div>");
   var rowc = $("<div class='row'></div>");
-  var imgSelected = $("<div id='imgSelected'></div>");
+  var imgSelected = $("<div id='imgSelected'class='col-xs-12'></div>");
 
   var total = 0;
 
@@ -3630,19 +3758,29 @@ var Yourbasket = function () {
     total += index.price;
   });
 
-  console.log(total);
-  var rowc2 = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'></div></div>");
-  var btnbuy = $("button type='button' name='button'>Buy<span class='precio'></span></button>");
-  var btnfttr = $("<button type='button' name='button'>Send to fitting room</button>");
+  buyselect2.forEach(function (index) {
+    imgSelected.append(imgBuy(index, update));
+    total += index.price;
+  });
+
+  var rowc2 = $("<div class='row cont_2'></div>");
+  var cont_btn = $(" <div class='col-xs-12 col-sm-12 container-flex-row'></div>");
+  var btn_comprar = $("<button class=\"btn btn-danger btn-lg boton\" type=\"button\" name=\"button\">Buy</button>");
+  var btn_cita = $("<button class=\"btn btn-danger btn-lg boton\"type=\"button\" name=\"button\">Cita</button>");
 
   secYourBasket.append(row1);
   secYourBasket.append(conta);
   conta.append(rowc);
   rowc.append(imgSelected);
   conta.append(rowc2);
-  rowc2.append(btnbuy);
-  rowc2.append(btnfttr);
+  rowc2.append(cont_btn);
+  cont_btn.append(btn_comprar);
+  cont_btn.append(btn_cita);
 
-
+  btn_cita.on("click", function () {
+    console.log("Entra a ala cita ");
+    state.page = 3;
+    update();
+  });
   return secYourBasket;
 };
