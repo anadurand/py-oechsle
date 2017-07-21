@@ -16,7 +16,6 @@ const Outfit = (update) => {
   if (state.clothSelected.Type == "blouse"){
 
       var palabras = state.clothSelected.combinations.split(", ");
-
           filtrados = filterBycloths(state.cloth.clothes ,"pants");
           filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
 
@@ -32,7 +31,6 @@ const Outfit = (update) => {
               col_shoes.push(item);
              }
           });
-
       colores.forEach( function( index) {
         secCarousel_1.append(slider1(index, update));
       });
@@ -82,6 +80,10 @@ const Outfit = (update) => {
         divOptions_2.append(secCarousel_2);
         controw.append(divOptions_2);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b495a7a94faad03ab1f58b57b31a995f669f8d8e
   const footerOutfit =$('<div class="outfit-container__footer">'+
                           '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
                         '</div>');
@@ -106,6 +108,6 @@ const Outfit = (update) => {
             }
         }
       });
-    });
+  });
   return contOutfit;
 }

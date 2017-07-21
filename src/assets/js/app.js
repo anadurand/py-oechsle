@@ -14,7 +14,6 @@ const render = (root)=>{
 
       section.append(Header());
       section.append(Outfit());
-
     }else if(state.page == 2){
     }
     root.append(section);

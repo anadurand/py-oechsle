@@ -1,5 +1,4 @@
 const Header = () => {
-
 	const headerContainer = $("<header class='header-container'></header>");
 	const divnavbar       = $('<nav class="navbar navbar-default"><div class="container-fluid"></div></nav>');
 	const div_header      = $('<div class="navbar-header">'+
@@ -23,6 +22,5 @@ const Header = () => {
 	headerContainer.append(divnavbar);
 	divnavbar.append(div_header);
 	divnavbar.append(div_collapse);
-
 	return headerContainer;
 }
