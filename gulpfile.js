@@ -17,7 +17,7 @@ const paths = {
     assets:"assets/",
     html:"**/*.html",
     sass:"scss/**/*.scss",
-    img: "img/**/*.png",
+    img: "img/**/*",
     js:"js/**/*.js",
     mainSass:"scss/main.scss"
 };

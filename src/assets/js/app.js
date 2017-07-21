@@ -2,14 +2,18 @@
 const render = (root)=>{
     root.empty();
     const section = $('<section class="components"></section>');
-    section.append(Header());
-    section.append(Mixed());
-    section.append(Footer());
+    state.cloth=1;
+    if (state.cloth == null){
+      section.append(Header());
+      section.append(welcome());
+    }else {
+      section.append(Header());
+      section.append(Outfit());
+    }
     root.append(section);
 };
 const state = {
     clothes: null,
-    cloth: null,
     clothSelected : null
 };
 
@@ -33,4 +37,20 @@ $( _ => {
   })
         const root = $('#root');
         render(root);
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:false,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+          })
 })

@@ -1,1 +1,74 @@
+@import "owlcarousel";
+@import "owlthemedefault";
+@import "owlthemegreen";
 @import "variables";
+@import "colors";
+html,body{
+  font-family: $font-principal;
+}
+#root{
+  height: 100vh;
+}
+header{
+  color: white;
+  nav.navbar-default{
+    margin-bottom: 0;
+  }
+  button.navbar-toggle{
+    float: left;
+    margin-left: 15px;
+
+  }
+  a.center{
+    padding-left: 30%;
+    div.img-size{
+      height: 30px;
+      width: 30px;
+    }
+  }
+  a.right{
+    float: right;
+  }
+}
+section.photo-container{
+  background-color: $gray-ligth;
+  div.photo-container__cont{
+    background-color:$gray-ligth;
+    div.cont_text{
+      padding: 5%;
+      text-align: justify;
+    }
+  }
+  div.photo-container__footer{
+    background-color: $gray-footer;
+    min-height: 60px;
+    padding: 5px ;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div.img-circle{
+      height: 40px;
+      width: 40px;
+      border: 1px solid $gray-dark;
+      i{
+        font-size: 25px;
+        color: $gray-dark;
+        top: 6px;
+        left: 6px;
+      }
+    }
+  }
+}
+section.contOutfit{
+  div.size_img{
+    height: 200px;
+    width: 100%;
+  }
+  div.size_img_carousel{
+    height: 200px;
+    width: 200px;
+  }
+}
