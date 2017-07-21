@@ -16,7 +16,6 @@ const render = (root)=>{
 const state = {
     cloth: null,
     clothSelected : null,
-    pag :null
 };
 
 const update = function (){
