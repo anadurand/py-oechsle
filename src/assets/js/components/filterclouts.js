@@ -2,7 +2,7 @@
 
 const filterBycloths= (ropa,query ) => {
   const select =ropa.filter(function(index) {
-    return (index.Type.indexOf(query)!=-1);
+    return (index.Type. (query)!=-1);
   });
   return select;
 }
@@ -12,4 +12,5 @@ const filtradosBycolors =(colors ,values) =>{
     return (index.color.indexOf(values)!=-1)
   });
   return colorselec;
+  console.log(colorselec);
 }

@@ -64,7 +64,7 @@
       "price": "69.95",
       "combinations": "black, white"
     },
-    { "image": "pants-n1.jpg",
+      { "image": "pants-n1.jpg",
       "name": "Pantalón superelástico",
       "Description": "Pantalón de cinco bolsillos en sarga lavada y superelástica con cintura estándar y perneras ajustadas.",
       "Type": "pants",

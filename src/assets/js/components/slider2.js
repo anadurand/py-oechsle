@@ -1,6 +1,6 @@
 'use strict';
 
-const slider1 = ( detail, update) => {
+const slider2 = ( detail, update) => {
   console.log(detail);
     const cont_Img = $("<div class='item'></div>");
     const divImg   = $('<div class="cont_img"></div>');
