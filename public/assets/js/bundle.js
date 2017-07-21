@@ -3477,23 +3477,25 @@ var FittingRoom = function (update) {
   var inputFilter = $("<input type='text' class='fitRoom--input-class' placeholder=''>");
   var mapa = $("<div id='mapa'></div>");
   var div2 = $("<div><p>select a date and time</p>" + "<input type='date' class='fitRoom--input-class'></div>");
-  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>" + "<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'><button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>" + "</div></div>");
+  var rows = $("<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>10:30 - 12:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>13:30 - 15:00</span></div></div>" + "<div class='row'><div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>15:30 - 17:00</span></div>" + "<div class='col-xs-6 col-sm-6 container-flex-row'><span class='fitRoom--span-class fitRoom--span-pd'>17:30 - 19:00</span></div></div>");
+  var row_btn = $("<div class='row'></div>");
+  var div_cont = $("<div class='col-xs-12 col-sm-12 container-flex-row'></div>");
+  var btn_next = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class fitRoom--span-pd'>Book appointment</button>");
 
-  // <div class="input-group">
-  //   <span class="input-group-addon" id="basic-addon1">@</span>
-  //   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
-  // </div>
 
   secFRoom.append(row);
   secFRoom.append(conta);
   conta.append(rowc);
   rowc.append(div);
   div.append(p);
-  // div.append(iconSearch)
   div.append(inputFilter);
   div.append(mapa);
   rowc.append(div2);
   conta.append(rows);
+  div_cont.append(btn_next);
+  row_btn.append(div_cont);
+  conta.append(row_btn);
+
   inputFilter.on("keyup", function (e) {
     var find = filterByLocal(state.locals, inputFilter.val());
 
@@ -3534,6 +3536,11 @@ var FittingRoom = function (update) {
 
     return contLocal;
   };
+  btn_next.on("click", function () {
+    console.log("Nos vemos  ");
+    state.page = 4;
+    update();
+  });
 
   function initMap(local) {
     console.log(local);
@@ -3571,14 +3578,14 @@ var FittingRoom = function (update) {
     e.style.opacity = "0.5";
   };
   var ac = false;
-  $(".fitRoom--span-class").click(function (e) {
-    if (!ac) {
-      Select(e.target);
-    } else {
-      unSelect(e.target);
-    }
-    console.log(e.target);
-  });
+  // $(".fitRoom--span-class").click((e)=>{
+  //   if(!ac){
+  //       Select(e.target);
+  //   }else{
+  //     unSelect(e.target);
+  //   }
+  //   console.log(e.target);
+  // });
 
   return secFRoom;
 };
