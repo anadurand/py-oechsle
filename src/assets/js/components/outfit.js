@@ -14,6 +14,7 @@ const Outfit = (update) => {
   let col_shoes = [] ;
 
   if (state.clothSelected.Type == "blouse"){
+
       var palabras = state.clothSelected.combinations.split(", ");
 
           filtrados = filterBycloths(state.cloth.clothes ,"pants");

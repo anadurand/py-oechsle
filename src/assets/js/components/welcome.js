@@ -23,7 +23,6 @@ const welcome = (update) => {
 				state.page =  1;
 				state.clothSelected = value;
 				console.log(state.clothSelected);
-
 				 }
 			});
 			update();
