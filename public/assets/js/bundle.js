@@ -7,6 +7,7 @@ var render = function (root) {
     section.append(Photo());
     section.append(Footer());
     root.append(section);
+    init();
 };
 // const state = {
 //     cloth: null,
@@ -82,7 +83,7 @@ var Photo = function () {
 	return photoContainer;
 };
 
-window.addEventListener("load", init);
+// window.addEventListener('load');
 function init() {
 	var video = document.querySelector("#video");
 	var canvas = document.querySelector("#canva");
