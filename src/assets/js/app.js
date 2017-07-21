@@ -12,7 +12,7 @@ const render = (root)=>{
     //
     // }else if(state.page == 2){
     // }
-    section.append(localsSearch());
+    section.append(FittingRoom());
     root.append(section);
 };
 const state = {
