@@ -2,18 +2,21 @@
 const render = (root)=>{
     root.empty();
     const section = $('<section class="components"></section>');
-    state.cloth=1;
-    if (state.cloth == null){
+
+    if (state.page == 0){
       section.append(Header());
       section.append(welcome());
-    }else {
+    }else if(state.page == 1) {
       section.append(Header());
       section.append(Outfit());
+
+    }else if(state.page == 2){
     }
     root.append(section);
 };
 const state = {
-    clothes: null,
+    page: 0,
+    cloth: null,
     clothSelected : null
 };
 
@@ -28,13 +31,13 @@ $( _ => {
     messagingSenderId: "305091668120"
   };
   firebase.initializeApp(config);
-
+  //
   var database = firebase.database();
-  database.ref().on("value", function(snap){
-    $('#display').html(snap.val());
-    console.log(snap.val());
-    snap.val()=state.clothes;
-  })
+   database.ref().on("value", function(snap){
+  //   // $('#display').html(snap.val());
+   console.log(snap.val());
+   state.cloth = snap.val();
+  });
         const root = $('#root');
         render(root);
         $('.owl-carousel').owlCarousel({

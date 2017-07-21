@@ -51,7 +51,7 @@ gulp.task('js', () => {
      gulp.src(sources.js)
         .pipe(toEs6())
         .pipe(concat('bundle.js'))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest(config.dist + paths.assets +"js"));
 });
 

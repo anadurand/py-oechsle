@@ -23,5 +23,6 @@ const Header = () => {
 	headerContainer.append(divnavbar);
 	divnavbar.append(div_header);
 	divnavbar.append(div_collapse);
+
 	return headerContainer;
 }
