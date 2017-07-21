@@ -2,15 +2,16 @@
 
 const filterBycloths= (ropa,query ) => {
   const select =ropa.filter(function(index) {
-    return (index.Type. (query)!=-1);
+    return (index.Type == query);
   });
+  // console.log(select);
   return select;
 }
 
 const filtradosBycolors =(colors ,values) =>{
   const colorselec =colors.filter(function(index){
-    return (index.color.indexOf(values)!=-1)
+    return (index.color == values);
   });
   return colorselec;
-  console.log(colorselec);
+  // console.log(colorselec);
 }

@@ -10,31 +10,35 @@ const Outfit = (update) => {
 
   let filtrados = null ;
   let filt_shoes =null;
-  let colores = null ;
-  let col_shoes = null ;
+  let colores = [];
+  let col_shoes = [] ;
 
   if (state.clothSelected.Type == "blouse"){
       var palabras = state.clothSelected.combinations.split(", ");
-      console.log(palabras);
-      $.each(state.cloth.clothes , function(i,value){
+
           filtrados = filterBycloths(state.cloth.clothes ,"pants");
-          // filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
-          // console.log(filt_shoes);
-          console.log(filtrados);
-        $.each(palabras ,function(i,value){
-          colores = filtradosBycolors(filtrados ,value);
-          // col_shoes =filtradosBycolors(filt_shoes ,value);
-          // console.log(col_shoes);
-        });
-      });
+          filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
+
+          $.each(filtrados, function(e,item){
+             var filtra=  palabras.indexOf(item.color);
+             if(filtra!=-1){
+              colores.push(item);
+             }
+          });
+          $.each(filt_shoes, function(e,item){
+             var filtra_shoe=  palabras.indexOf(item.color);
+             if(filtra_shoe!=-1){
+              col_shoes.push(item);
+             }
+          });
+
       colores.forEach( function( index) {
         secCarousel_1.append(slider1(index, update));
       });
-      // col_shoes.forEach( function( index) {
-      //   secCarousel_2.append(slider2(index, update));
-      // });
 
-      console.log(col_shoes);
+      col_shoes.forEach( function( index) {
+        secCarousel_2.append(slider2(index, update));
+      });
 
       divSelect.append(imgSelect) ;
       controw.append(divSelect);
