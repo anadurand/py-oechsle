@@ -2,7 +2,7 @@
 const render = (root)=>{
     root.empty();
     const section = $('<section class="components"></section>');
-
+    state.page =  1;
     if (state.page == 0){
       section.append(Header());
       section.append(welcome());
@@ -31,29 +31,28 @@ $( _ => {
     messagingSenderId: "305091668120"
   };
   firebase.initializeApp(config);
-  //
   var database = firebase.database();
    database.ref().on("value", function(snap){
-  //   // $('#display').html(snap.val());
-   console.log(snap.val());
+  //  console.log(snap.val());
    state.cloth = snap.val();
+   const root = $('#root');
+   render(root);
+   $('.owl-carousel').owlCarousel({
+       loop:true,
+       margin:10,
+       nav:false,
+       responsive:{
+           0:{
+               items:1
+           },
+           600:{
+               items:3
+           },
+           1000:{
+               items:5
+           }
+       }
+     })
   });
-        const root = $('#root');
-        render(root);
-        $('.owl-carousel').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:false,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:5
-                }
-            }
-          })
+
 })

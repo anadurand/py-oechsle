@@ -1,4 +1,4 @@
-const Outfit = () => {
+const Outfit = (update) => {
 
 
   const contOutfit = $('<section class="cont_outfit"></section>');
@@ -8,14 +8,14 @@ const Outfit = () => {
   const divOptions_1 = $('<div id="img_variable_1" class="col-xs-8 col-xs-offset-2"></div>');
   const secCarousel_1 = $("<div class='owl-carousel owl-theme'></div>");
 
-  // const filtrados = filterBycloths(state.clothes ,"white");
-  //           if (filtrados.length == 0) {
-  //             alert("No existe ninguna prenda con su estilo");
-  //           }else {
-  //             filtrados.forEach( function( index) {
-  //               secCarousel_1.append(slider1(index,update));
-  //             });
-  //           };
+  const filtrados = filterBycloths(state.cloth.clothes ,"pants");
+            if (filtrados.length == 0) {
+              alert("No existe ninguna prenda con su estilo");
+            }else {
+              filtrados.forEach( function( index) {
+                secCarousel_1.append(slider1(index,update));
+              });
+            };
   const divOptions_2 = $('<div id="img_variable_2" class="col-xs-7 col-xs-offset-3"></div>');
   const secCarousel_2 = $("<div class='owl-carousel owl-theme'>"+
                       "<div class='item'><img src='assets/img/shoe-b1.jpg' class='img-responsive'></div>"+
@@ -40,6 +40,5 @@ const Outfit = () => {
   controw.append(divOptions_2);
   contOutfit.append(controw);
   contOutfit.append(footerOutfit);
-  console.log(state.cloth);
   return contOutfit;
 }
