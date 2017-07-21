@@ -19,7 +19,6 @@ const welcome = (update) => {
 
 		$.each(state.cloth.clothes, function( i, value ) {
 			if (value.image == prenda) {
-			  // alert( "color:"+value.color+" compatibles"+value.combinations);
 				state.page =  1;
 				state.clothSelected = value;
 				 }

@@ -1,14 +1,7 @@
 "use strict";
 var render = function (root) {
   root.empty();
-<<<<<<< HEAD
   var section = $("<section class=\"components\"></section>");
-
-=======
-
-  var section = $("<section class=\"components\"></section>");
-  // state.page =  1;
->>>>>>> origin/components
   if (state.page == 0) {
     section.append(Header());
     section.append(welcome(function (_) {
@@ -17,13 +10,7 @@ var render = function (root) {
   } else if (state.page == 1) {
     section.append(Header());
     section.append(Outfit());
-<<<<<<< HEAD
-  }
-=======
-
-
   } else if (state.page == 2) {}
->>>>>>> origin/components
   root.append(section);
 };
 
@@ -31,12 +18,6 @@ var state = {
   page: 0,
   cloth: null,
   clothSelected: null
-<<<<<<< HEAD
-};
-
-$(function (_) {
-  // Initialize Firebase
-=======
 };
 
 var update = function () {
@@ -44,7 +25,6 @@ var update = function () {
 };
 
 $(function (_) {
->>>>>>> origin/components
   var config = {
     apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
     authDomain: "base-7937c.firebaseapp.com",
@@ -56,11 +36,18 @@ $(function (_) {
   firebase.initializeApp(config);
   var database = firebase.database();
   database.ref().on("value", function (snap) {
-<<<<<<< HEAD
-    console.log(snap.val());
-=======
->>>>>>> origin/components
     state.cloth = snap.val();
+
+    var array = [];
+    for (var i = 0; i < state.cloth.clothes.length; i++) {
+      if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
+        array.push(state.cloth.clothes[i].image);
+      }
+    };
+    var randno = array[Math.floor(Math.random() * array.length)];
+    // $('.archivoNombre').text( randno );
+    console.log(randno);
+
     var root = $("#root");
     render(root);
   });
@@ -2220,7 +2207,7 @@ $(function (_) {
    		https://vimeo.com/channels/:channel/:id
    		https://vimeo.com/groups/:group/videos/:id
    		https://app.vzaar.com/videos/:id
-   			Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
+   				Visual example: https://regexper.com/#(http%3A%7Chttps%3A%7C)%5C%2F%5C%2F(player.%7Cwww.%7Capp.)%3F(vimeo%5C.com%7Cyoutu(be%5C.com%7C%5C.be%7Cbe%5C.googleapis%5C.com)%7Cvzaar%5C.com)%5C%2F(video%5C%2F%7Cvideos%5C%2F%7Cembed%5C%2F%7Cchannels%5C%2F.%2B%5C%2F%7Cgroups%5C%2F.%2B%5C%2F%7Cwatch%5C%3Fv%3D%7Cv%5C%2F)%3F(%5BA-Za-z0-9._%25-%5D*)(%5C%26%5CS%2B)%3F
    */
 
 			id = url.match(/(http:|https:|)\/\/(player.|www.|app.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|vzaar\.com)\/(video\/|videos\/|embed\/|channels\/.+\/|groups\/.+\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(\&\S+)?/);
@@ -3299,11 +3286,11 @@ var Mixed = function () {
 "use strict";
 
 var filterBycloths = function (ropa, query) {
-  console.log(ropa);
   var select = ropa.filter(function (index) {
     return index.Type.indexOf(query) != -1;
   });
   return select;
+  console.log(select);
 };
 
 var filtradosBycolors = function (colors, values) {
@@ -3342,28 +3329,6 @@ var Header = function () {
 };
 "use strict";
 
-<<<<<<< HEAD
-var Outfit = function () {
-  var contOutfit = $("<section class=\"contOutfit\"></section>");
-  var divSelect = $("<div id=\"img_fixed size_img\"></div>");
-  var imgSelect = $("<img src=\"assets/img/blouse-c2.jpg\" alt=\"foto_selecionada\">");
-  var divOptions_1 = $("<div id=\"img_variable_1 size_img_carousel\" class=\"img-responsive\"></div>");
-  var secCarousel_1 = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/jean-1.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/jean-2.jpg' class='img-responsive'></div>" + "<div class='item'><img src='assets/img/pants-b1.jpg'></div>" + "<div class='tem'><img src='assets/img/pants-b2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-be2.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n1.jpg'></div>" + "<div class='item'><img src='assets/img/pants-n2.jpg'></div>" + "</div>");
-  var divOptions_2 = $("<div id=\"img_variable_2 size_img_carousel\"></div>");
-  var secCarousel_2 = $("<div class='owl-carousel owl-theme'>" + "<div class='item'><img src='assets/img/shoe-b1.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-b2.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-be1.jpg'></div>" + "<div class='tem'><img src='assets/img/shoe-be2.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-n1.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-n2.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-n3.jpg'></div>" + "<div class='item'><img src='assets/img/shoe-n4.jpg'></div>" + "</div>");
-  var footerOutfit = $("<div class=\"photo-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
-
-
-  contOutfit.append(divSelect);
-  divSelect.append(imgSelect);
-  divOptions_1.append(secCarousel_1);
-  divOptions_2.append(secCarousel_2);
-  contOutfit.append(divSelect);
-  contOutfit.append(divOptions_1);
-  contOutfit.append(divOptions_2);
-  contOutfit.append(footerOutfit);
-  $(document).ready(function () {
-=======
 var Outfit = function (update) {
   var contOutfit = $("<section class=\"cont_outfit\"></section>");
   var controw = $("<div class=\"row\"></div>");
@@ -3381,24 +3346,28 @@ var Outfit = function (update) {
 
   if (state.clothSelected.Type == "blouse") {
     var palabras = state.clothSelected.combinations.split(", ");
-    console.log(palabras);
+    // console.log(palabras);
+
     $.each(state.cloth.clothes, function (i, value) {
       filtrados = filterBycloths(state.cloth.clothes, "pants");
-      // filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
-      // console.log(filt_shoes);
+      filt_shoes = filterBycloths(state.cloth.clothes, "shoe");
+      // console.log(value);
       console.log(filtrados);
-      $.each(palabras, function (i, value) {
-        colores = filtradosBycolors(filtrados, value);
-        // col_shoes =filtradosBycolors(filt_shoes ,value);
-        // console.log(col_shoes);
-      });
     });
+
+    $.each(filtrados, function (i, value) {
+      colores = filtradosBycolors(filtrados, value);
+      col_shoes = filtradosBycolors(filt_shoes, value);
+      console.log(value);
+    });
+
     colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
-    // col_shoes.forEach( function( index) {
-    //   secCarousel_2.append(slider2(index, update));
-    // });
+
+    col_shoes.forEach(function (index) {
+      secCarousel_2.append(slider2(index, update));
+    });
 
     console.log(col_shoes);
 
@@ -3428,24 +3397,12 @@ var Outfit = function (update) {
     divSelect.append(imgSelect);
     controw.append(divSelect);
   }
-  //
-  // const divOptions_2 = $('<div id="img_variable_2" class="col-xs-7 col-xs-offset-3"></div>');
-  // const secCarousel_2 = $("<div class='owl-carousel owl-theme'>"+
-  //                     "<div class='item'><img src='assets/img/shoe-b1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-b2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-be1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='tem'><img src='assets/img/shoe-be2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n3.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n4.jpg' class='img-responsive'></div>"+
-  //                     "</div>");
+
   var footerOutfit = $("<div class=\"outfit-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
 
   contOutfit.append(controw); //Secundario
   contOutfit.append(footerOutfit);
   $(function (_) {
->>>>>>> origin/components
     $(".owl-carousel").owlCarousel({
       loop: true,
       margin: 10,
@@ -3463,15 +3420,6 @@ var Outfit = function (update) {
       }
     });
   });
-<<<<<<< HEAD
-
-
-
-  return contOutfit;
-};
-"use strict";
-
-=======
   return contOutfit;
 };
 "use strict";
@@ -3514,7 +3462,6 @@ var slider2 = function (detail, update) {
 };
 "use strict";
 
->>>>>>> origin/components
 var welcome = function (update) {
 	var photoContainer = $("<section class=\"photo-container\"></section>");
 	var photoCont = $("<div class=\"photo-container__cont\"></div>");
@@ -3528,34 +3475,15 @@ var welcome = function (update) {
 	photoContainer.append(photoCont);
 	photoContainer.append(photoFooter);
 
-<<<<<<< HEAD
-
-	// console.log(state.cloth);
-=======
->>>>>>> origin/components
 	photoFooter.on("click", function () {
 		var prenda = $("#archivo").val();
 
 		$.each(state.cloth.clothes, function (i, value) {
-<<<<<<< HEAD
-			// alert("hola");
-			// console.log(state.cloth.clothes[1].image);
-			// console.log(value.image);
 			if (value.image == prenda) {
-				// console.log(value);
-				alert("color:" + value.color + " compatibles" + value.combinations);
-				state.page = 1;
-			}
-		});
-
-=======
-			if (value.image == prenda) {
-				// alert( "color:"+value.color+" compatibles"+value.combinations);
 				state.page = 1;
 				state.clothSelected = value;
 			}
 		});
->>>>>>> origin/components
 		update();
 	});
 	return photoContainer;

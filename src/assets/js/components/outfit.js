@@ -15,24 +15,28 @@ const Outfit = (update) => {
 
   if (state.clothSelected.Type == "blouse"){
       var palabras = state.clothSelected.combinations.split(", ");
-      console.log(palabras);
+      // console.log(palabras);
+
       $.each(state.cloth.clothes , function(i,value){
           filtrados = filterBycloths(state.cloth.clothes ,"pants");
-          // filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
-          // console.log(filt_shoes);
+          filt_shoes = filterBycloths(state.cloth.clothes ,"shoe");
+          // console.log(value);
           console.log(filtrados);
-        $.each(palabras ,function(i,value){
-          colores = filtradosBycolors(filtrados ,value);
-          // col_shoes =filtradosBycolors(filt_shoes ,value);
-          // console.log(col_shoes);
         });
+
+        $.each(filtrados ,function(i,value){
+          colores = filtradosBycolors(filtrados ,value);
+          col_shoes =filtradosBycolors(filt_shoes ,value);
+          console.log(value);
       });
+
       colores.forEach( function( index) {
         secCarousel_1.append(slider1(index, update));
       });
-      // col_shoes.forEach( function( index) {
-      //   secCarousel_2.append(slider2(index, update));
-      // });
+
+      col_shoes.forEach( function( index) {
+        secCarousel_2.append(slider2(index, update));
+      });
 
       console.log(col_shoes);
 
@@ -63,18 +67,7 @@ const Outfit = (update) => {
     divSelect.append(imgSelect) ;
     controw.append(divSelect);
   }
-  //
-  // const divOptions_2 = $('<div id="img_variable_2" class="col-xs-7 col-xs-offset-3"></div>');
-  // const secCarousel_2 = $("<div class='owl-carousel owl-theme'>"+
-  //                     "<div class='item'><img src='assets/img/shoe-b1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-b2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-be1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='tem'><img src='assets/img/shoe-be2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n1.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n2.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n3.jpg' class='img-responsive'></div>"+
-  //                     "<div class='item'><img src='assets/img/shoe-n4.jpg' class='img-responsive'></div>"+
-  //                     "</div>");
+
   const footerOutfit =$('<div class="outfit-container__footer">'+
                           '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
                         '</div>');
