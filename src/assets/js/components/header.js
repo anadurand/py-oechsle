@@ -7,5 +7,4 @@ const Header = () => {
 	headerContainer.append(search);
 
 	return headerContainer;
-
 }

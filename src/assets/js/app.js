@@ -7,32 +7,30 @@ const render = (root)=>{
     section.append(Footer());
     root.append(section);
 };
-// const state = {
-//     cloth: null,
-//     clothSelected : null
-// };
+const state = {
+    clothes: null,
+    cloth: null,
+    clothSelected : null
+};
 
 $( _ => {
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
+    authDomain: "base-7937c.firebaseapp.com",
+    databaseURL: "https://base-7937c.firebaseio.com",
+    projectId: "base-7937c",
+    storageBucket: "",
+    messagingSenderId: "305091668120"
+  };
+  firebase.initializeApp(config);
 
-    // $.get('',(json) => {
-    //     if(!json){
-    //       return alert("error");
-    //     }
-        // state.cloth = json;
-        // console.log(state.cloth);
+  var database = firebase.database();
+  database.ref().on("value", function(snap){
+    $('#display').html(snap.val());
+    console.log(snap.val());
+    snap.val()=state.clothes;
+  })
         const root = $('#root');
         render(root);
-    // });
-
-        // var socket = io();
-        // $('form').submit(function(){
-        //   socket.emit('chat message', $('#m').val());
-        //   $('#m').val('');
-        //   return false;
-        // });
-        // socket.on('chat message', function(msg){
-        //   $('#messages').append($('<li>').text(msg));
-        //   window.scrollTo(0, document.body.scrollHeight);
-        // });
-
 })
