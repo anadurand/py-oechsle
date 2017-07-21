@@ -34,7 +34,6 @@ const sources = {
 
 gulp.task('html', () => {
     gulp.src(sources.html).pipe(gulp.dest(config.dist));
-
 });
 gulp.task('sass', () => {
     gulp.src(sources.rootSass)
@@ -45,7 +44,7 @@ gulp.task('sass', () => {
 
 gulp.task('img', () => {
     gulp.src(sources.img).pipe(gulp.dest(config.dist+paths.assets+"img"));
-})
+});
 
 gulp.task('js', () => {
      gulp.src(sources.js)
@@ -68,7 +67,7 @@ gulp.task('js-watch',["js"], (done) => {
 gulp.task('img-watch', ["img"], (done) =>{
     browserSync.reload();
     done();
-})
+});
 
 gulp.task('html-watch',["html"], (done) => {
     browserSync.reload();
