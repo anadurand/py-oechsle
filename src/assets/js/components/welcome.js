@@ -22,6 +22,7 @@ const welcome = (update) => {
 			  // alert( "color:"+value.color+" compatibles"+value.combinations);
 				state.page =  1;
 				state.clothSelected = value;
+				console.log(state.clothSelected);
 
 				 }
 			});
