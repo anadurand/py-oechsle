@@ -1,4 +1,5 @@
 const Outfit = (update) => {
+
   const contOutfit = $('<section class="cont_outfit"></section>');
   const controw    =$('<div class="row"></div>');
   const divSelect  = $('<div id="img_fixed" class="col-xs-8 col-xs-offset-2"></div>');
@@ -34,7 +35,6 @@ const Outfit = (update) => {
       colores.forEach( function( index) {
         secCarousel_1.append(slider1(index, update));
       });
-
       col_shoes.forEach( function( index) {
         secCarousel_2.append(slider2(index, update));
       });
@@ -80,21 +80,17 @@ const Outfit = (update) => {
         divOptions_2.append(secCarousel_2);
         controw.append(divOptions_2);
   }
-  const footerOutfit =$('<div class="outfit-container__footer">'+
-                          '<div class="img-circle"><i class="glyphicon glyphicon-camera"></i></div>'+
-                        '</div>');
 
   contOutfit.append(controw); //Secundario
-  contOutfit.append(footerOutfit);
+
   $( _ => {
     $('.owl-carousel').owlCarousel({
         loop:true,
         margin:10,
         nav:false,
-        center:true,
         responsive:{
             0:{
-                items:3
+                items:1
             },
             600:{
                 items:3

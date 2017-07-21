@@ -1,48 +1,67 @@
 "use strict";
 var render = function (root) {
-    root.empty();
-
-    var section = $("<section class=\"components\"></section>");
-    // state.page =  1;
-    if (state.page == 0) {
-        section.append(Header());
-        section.append(welcome(function (_) {
-            render(root);
-        }));
-    } else if (state.page == 1) {
-        section.append(Header());
-        section.append(Outfit());
-    } else if (state.page == 2) {}
-    root.append(section);
-    init();
+  root.empty();
+  var section = $("<section class=\"components\"></section>");
+  if (state.page == 0) {
+    section.append(Header(function (_) {
+      render(root);
+    }));
+    section.append(welcome(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 1) {
+    section.append(Header(function (_) {
+      render(root);
+    }));
+    section.append(Outfit(function (_) {
+      render(root);
+    }));
+  } else if (state.page == 2) {
+    section.append(Yourbasket());
+  }
+  root.append(section);
+  init();
 };
 
 var state = {
-    page: 0,
-    cloth: null,
-    clothSelected: null
-};
+  page: 0,
+  cloth: null,
+  buy: null,
+  clothSelected: null,
+  prendaRandon: null };
 
 var update = function () {
-    render(root);
+  render(root);
 };
 
 $(function (_) {
-    var config = {
-        apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
-        authDomain: "base-7937c.firebaseapp.com",
-        databaseURL: "https://base-7937c.firebaseio.com",
-        projectId: "base-7937c",
-        storageBucket: "",
-        messagingSenderId: "305091668120"
+  var config = {
+    apiKey: "AIzaSyBdX8FyCVHBS3WkdCi7KeW-5BFw7KlC3g4",
+    authDomain: "base-7937c.firebaseapp.com",
+    databaseURL: "https://base-7937c.firebaseio.com",
+    projectId: "base-7937c",
+    storageBucket: "",
+    messagingSenderId: "305091668120"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  database.ref().on("value", function (snap) {
+    state.cloth = snap.val();
+
+    var array = [];
+    for (var i = 0; i < state.cloth.clothes.length; i++) {
+      if (state.cloth.clothes[i].Type == "pants" || state.cloth.clothes[i].Type == "blouse") {
+        array.push(state.cloth.clothes[i].image);
+      }
     };
-    firebase.initializeApp(config);
-    var database = firebase.database();
-    database.ref().on("value", function (snap) {
-        state.cloth = snap.val();
-        var root = $("#root");
-        render(root);
-    });
+    var randno = array[Math.floor(Math.random() * array.length)];
+    // $('.archivoNombre').text( randno );
+    state.prendaRandon = randno;
+    console.log(randno);
+
+    var root = $("#root");
+    render(root);
+  });
 });
 "use strict";
 
@@ -3276,7 +3295,6 @@ var filterBycloths = function (ropa, query) {
     return index.Type == query;
   });
   return select;
-  console.log(select);
 };
 
 var filtradosBycolors = function (colors, values) {
@@ -3329,16 +3347,43 @@ var Footer = function () {
 };
 "use strict";
 
-var Header = function () {
+var Header = function (update) {
 	var headerContainer = $("<header class='header-container'></header>");
 	var divnavbar = $("<nav class=\"navbar navbar-default\"><div class=\"container-fluid\"></div></nav>");
-	var div_header = $("<div class=\"navbar-header\">" + "<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">" + "<span class=\"sr-only\">Toggle navigation</span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "</button>" + "<a class=\"navbar-brand center\" href=\"#\"><div class=\"img-size\"><img src=\"assets/img/logo.png\" class=\"img-responsive\" alt=\"logo\"></div></a>" + "<a class=\"navbar-brand right\" href=\"#\"><i class=\"glyphicon glyphicon-shopping-cart\"></i></a>" + "</div>");
-	var div_collapse = $("<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">" + "<ul class=\"nav navbar-nav\">" + "<li class=\"active\"><a href=\"#\">Inicio <span class=\"sr-only\">(current)</span></a></li>" + "<li><a href=\"#\">Mis compras </a></li>" + "<li><a href=\"#\">Mis citas </a></li>" + "</ul>" + "</div>");
+	var div_header = $("<div class=\"navbar-header\">" + "<button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">" + "<span class=\"sr-only\">Toggle navigation</span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "<span class=\"icon-bar\"></span>" + "</button></div>");
+	var logo = $("<a class=\"navbar-brand center\" href=\"#\"><div class=\"img-size\"><img src=\"assets/img/logo.png\" class=\"img-responsive\" alt=\"logo\"></div></a>");
+	var btn_buy = $("<a class=\"navbar-brand right\" href=\"#compras\"><i class=\"glyphicon glyphicon-shopping-cart\"></i></a>");
 
-	headerContainer.append(divnavbar);
+	var div_collapse = $("<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">" + "<ul class=\"nav navbar-nav\">" + "<li class=\"active\"><a href=\"#\">Inicio <span class=\"sr-only\">(current)</span></a></li>" + "<li><a href=\"#\">Mis compras </a></li>" + "<li><a href=\"#\">Mis citas </a></li>" + "</ul>" + "</div>");
+	div_header.append(logo);
+	div_header.append(btn_buy);
+	headerContainer.append(divnavbar);;
 	divnavbar.append(div_header);
 	divnavbar.append(div_collapse);
+
+	btn_buy.on("click", function () {
+		console.log("compra de articulos");
+		state.page = 2;
+		update();
+	});
 	return headerContainer;
+};
+"use strict";
+var imgBuy = function (detail, update) {
+    var cont_Img = $("<div class='item'></div>");
+    var divImg = $("<div class=\"cont_img\"></div>");
+    var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+    var divText = $("<div class=\"cont_text\"></div>");
+    var name = $("<h6>" + detail.name + "</h6>");
+    var price = $("<p>Precio : " + detail.price + "</p>");
+
+    cont_Img.append(divImg);
+    cont_Img.append(divText);
+    divImg.append(img);
+    divText.append(name);
+    divText.append(price);
+
+    return cont_Img;
 };
 "use strict";
 
@@ -3377,7 +3422,6 @@ var Outfit = function (update) {
     colores.forEach(function (index) {
       secCarousel_1.append(slider1(index, update));
     });
-
     col_shoes.forEach(function (index) {
       secCarousel_2.append(slider2(index, update));
     });
@@ -3422,19 +3466,17 @@ var Outfit = function (update) {
     divOptions_2.append(secCarousel_2);
     controw.append(divOptions_2);
   }
-  var footerOutfit = $("<div class=\"outfit-container__footer\">" + "<div class=\"img-circle\"><i class=\"glyphicon glyphicon-camera\"></i></div>" + "</div>");
 
   contOutfit.append(controw); //Secundario
-  contOutfit.append(footerOutfit);
+
   $(function (_) {
     $(".owl-carousel").owlCarousel({
       loop: true,
       margin: 10,
       nav: false,
-      center: true,
       responsive: {
         0: {
-          items: 3
+          items: 1
         },
         600: {
           items: 3
@@ -3448,42 +3490,52 @@ var Outfit = function (update) {
   return contOutfit;
 };
 "use strict";
-
+var buyselect1 = [];
 var slider1 = function (detail, update) {
-  console.log(detail);
+  var enlace1 = $("<a></a>");
   var cont_Img = $("<div class='item'></div>");
   var divImg = $("<div class=\"cont_img\"></div>");
   var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
   var divText = $("<div class=\"cont_text\"></div>");
   var name = $("<h6>" + detail.name + "</h6>");
   var price = $("<p>Precio : " + detail.price + "</p>");
-
   cont_Img.append(divImg);
   cont_Img.append(divText);
   divImg.append(img);
   divText.append(name);
   divText.append(price);
+  enlace1.append(cont_Img);
 
-  return cont_Img;
+  enlace1.on("click", function () {
+    buyselect1.push(detail);
+    console.log(detail);
+    console.log(buyselect1);
+  });
+  return enlace1;
 };
 "use strict";
-
+var buyselect2 = [];
 var slider2 = function (detail, update) {
-  console.log(detail);
-  var cont_Img = $("<div class='item'></div>");
-  var divImg = $("<div class=\"cont_img\"></div>");
-  var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
-  var divText = $("<div class=\"cont_text\"></div>");
-  var name = $("<h6>" + detail.name + "</h6>");
-  var price = $("<p>Precio : " + detail.price + "</p>");
+    var enlace2 = $("<a></a>");
+    var cont_Img = $("<div class='item'></div>");
+    var divImg = $("<div class=\"cont_img\"></div>");
+    var img = $("<img src=\"assets/img/" + detail.image + "\" class=\"img-responsive\">");
+    var divText = $("<div class=\"cont_text\"></div>");
+    var name = $("<h6>" + detail.name + "</h6>");
+    var price = $("<p>Precio : " + detail.price + "</p>");
 
-  cont_Img.append(divImg);
-  cont_Img.append(divText);
-  divImg.append(img);
-  divText.append(name);
-  divText.append(price);
+    cont_Img.append(divImg);
+    cont_Img.append(divText);
+    divImg.append(img);
+    divText.append(name);
+    divText.append(price);
+    enlace2.append(cont_Img);
 
-  return cont_Img;
+    enlace2.on("click", function () {
+        buyselect2.push(detail);
+        console.log(buyselect2);
+    });
+    return enlace2;
 };
 "use strict";
 
@@ -3493,84 +3545,76 @@ var TakePicture = function () {
 "use strict";
 
 var welcome = function (update) {
-		var photoContainer = $("<section class=\"photo-container\"></section>");
-		var photoCont = $("<div class=\"photo-container__cont\"></div>");
-		var divMsj = $("<div class=\"cont_text\"><h4>Bienvenida al App de Oechsle.<br>Oechsle es la Tienda por Departamento del Grupo Intercorp. Somos parte de un grupo empresarial comprometido con el desarrollo y bienestar de las familias Peruanas. </h4></div>");
+    var photoContainer = $("<section class=\"photo-container\"></section>");
+    var photoCont = $("<div class=\"photo-container__cont\"></div>");
+    var divMsj = $("<div class=\"cont_text\"><h4>Bienvenida al App de Oechsle.<br>Oechsle es la Tienda por Departamento del Grupo Intercorp. Somos parte de un grupo empresarial comprometido con el desarrollo y bienestar de las familias Peruanas. </h4></div>");
 
-		var videoHtml = $("<video id='video' width='250' height='250'></video>");
-		var imgHtml = $("<img id='img' src='' width='250' height='250'>");
-		var canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
-		var buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
-		//const downloadHtml = $("<a href='#' class='button' id='btn-download' download='blouse-n2.jpg'>Download</a>");
-
-
-		var imgPhoto = $("<img src=\"http://cdn.modalia.es/images/stories/2015/febrero/hm-chaquetas-ss15/hm-chaquetas-ss15_6.jpg\" class=\"img-responsive\" alt=\"chaqueta\">");
-		var photoFooter = $("<div class=\"photo-container__footer\"></div>");
-		var ok = $("<div id=\"seleccionar\"  class=\"img-circle\"><i  class=\"glyphicon glyphicon-ok\"></i></div>");
-
-		photoCont.append(divMsj);
-		photoContainer.append(photoCont);
+    var videoHtml = $("<video id='video' width='250' height='250'></video>");
+    var imgHtml = $("<img id='img' src='' width='250' height='250'>");
+    var canvasHtml = $("<canvas id='canva' width='250' height='250'></canvas>");
+    var buttonHtml = $("<div id='button' class='img-circle'><i id='camara' class='glyphicon glyphicon-camera'></i></div>");
+    //const downloadHtml = $("<a href='#' class='button' id='btn-download' download='blouse-n2.jpg'>Download</a>");
 
 
-		photoContainer.append(videoHtml);
-		photoContainer.append(imgHtml);
-		photoContainer.append(canvasHtml);
-		photoContainer.append(videoHtml);
+    var imgPhoto = $("<img src=\"http://cdn.modalia.es/images/stories/2015/febrero/hm-chaquetas-ss15/hm-chaquetas-ss15_6.jpg\" class=\"img-responsive\" alt=\"chaqueta\">");
+    var photoFooter = $("<div class=\"photo-container__footer\"></div>");
+    var ok = $("<div id=\"seleccionar\"  class=\"img-circle\"><i  class=\"glyphicon glyphicon-ok\"></i></div>");
 
-		photoFooter.append(ok);
-		photoFooter.append(buttonHtml);
-		photoContainer.append(photoFooter);
+    photoCont.append(divMsj);
+    photoContainer.append(photoCont);
 
-		ok.on("click", function () {
-				var prenda = state.prendaRandon;
 
-				$.each(state.cloth.clothes, function (i, value) {
-						if (value.image == prenda) {
-								state.page = 1;
-								state.clothSelected = value;
-						}
-				});
-				update();
-		});
-		return photoContainer;
+    photoContainer.append(videoHtml);
+    photoContainer.append(imgHtml);
+    photoContainer.append(canvasHtml);
+    photoContainer.append(videoHtml);
+
+    photoFooter.append(ok);
+    photoFooter.append(buttonHtml);
+    photoContainer.append(photoFooter);
+
+    ok.on("click", function () {
+        var prenda = state.prendaRandon;
+        $.each(state.cloth.clothes, function (i, value) {
+            if (value.image == prenda) {
+                state.page = 1;
+                state.clothSelected = value;
+            }
+        });
+        update();
+    });
+    return photoContainer;
 };
 
 function init() {
-		var video = document.querySelector("#video");
-		var canvas = document.querySelector("#canva");
-		var button = document.querySelector("#button");
-		var img = document.querySelector("#img");
-		canvas.style.display = "none";
-		img.style.display = "none";
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-		if (navigator.getUserMedia) {
-				navigator.getUserMedia({ video: true }, function (stream) {
-						video.src = window.URL.createObjectURL(stream);
-						video.play();
-				}, function (error) {
-						console.log(error);
-				});
-		} else alert("Tienes un navegador obsoleto");
-		video.addEventListener("loadedmetadata", function () {
-				canvas.width = video.videoWidth;
-				canvas.height = video.videoHeight;
-		}, false);
-		button.addEventListener("click", function () {
-				canvas.getContext("2d").drawImage(video, 0, 0);
-				var imgData = canvas.toDataURL("image/png");
-				img.setAttribute("src", imgData);
-				state.photoTaken = imgData;
-				console.log(state.photoTaken);
+    var video = document.querySelector("#video");
+    var canvas = document.querySelector("#canva");
+    var button = document.querySelector("#button");
+    var img = document.querySelector("#img");
+    canvas.style.display = "none";
+    img.style.display = "none";
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    if (navigator.getUserMedia) {
+        navigator.getUserMedia({ video: true }, function (stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        }, function (error) {
+            console.log(error);
+        });
+    } else alert("Tienes un navegador obsoleto");
+    video.addEventListener("loadedmetadata", function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    }, false);
+    button.addEventListener("click", function () {
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        var imgData = canvas.toDataURL("image/png");
+        img.setAttribute("src", imgData);
+        state.photoTaken = imgData;
 
-				img.style.display = "block";
-				video.style.display = "none";
-		});
-		// var btn = document.getElementById('btn-download');
-		// btn.addEventListener('click', function (e) {
-		// var dataURL = canvas.toDataURL('image/png');
-		// btn.href = dataURL;
-
-		// });
+        img.style.display = "block";
+        video.style.display = "none";
+    });
 }
 "use strict";
 
@@ -3578,11 +3622,20 @@ var Yourbasket = function () {
   var secYourBasket = $("<section id='yourBasket' class='container-fluid'></section>");
   var row1 = $("<div class='row'><div class='col-xs-2 col-sm-2 container-flex-row'><i class='glyphicon glyphicon-remove'></i></div>" + "<div class='col-xs-10 col-sm-10 container-flex-row'><p>Your Basket (<span id='nItems'></span> items)</p></div></div>");
   var conta = $("<div class='container'></div>");
-  var rowc = $("<div class='row></div>");
+  var rowc = $("<div class='row'></div>");
   var imgSelected = $("<div id='imgSelected'></div>");
+
+  var total = 0;
+
+  buyselect1.forEach(function (index) {
+    imgSelected.append(imgBuy(index, update));
+    total += index.price;
+  });
+
+  console.log(total);
   var rowc2 = $("<div class='row'><div class='col-xs-12 col-sm-12 container-flex-row'></div></div>");
-  var btnbuy = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class pd'>Buy</button>");
-  var btnfttr = $("<button type='button' name='button' class='col-xs-12 col-sm-12 fitRoom--button-class pd'>Send to fitting room</button>");
+  var btnbuy = $("button type='button' name='button'>Buy<span class='precio'></span></button>");
+  var btnfttr = $("<button type='button' name='button'>Send to fitting room</button>");
 
   secYourBasket.append(row1);
   secYourBasket.append(conta);
